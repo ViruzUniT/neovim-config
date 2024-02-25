@@ -1,47 +1,94 @@
 local lspconfig = require('lspconfig')
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = {
+        "lua_ls",
+        "clangd",
+        -- "clang-format",
+    }
+})
 
-require'lspconfig'.clangd.setup {}
-
-vim.cmd("LspStart")
-
-vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-    callback = function(ev)
+local on_attach = function (_, _)
+    --group = vim.api.nvim_create_augroup('UserLspConfig', {})
+    --callback = function(ev)
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = {buffer = ev.buf}
+        local opts = {} -- {buffer = ev.buf}
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
-                       {buffer = ev.buf, desc = "Goto Declaration"})
+                       {opts, desc = "Goto Declaration"})
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
-                       {buffer = ev.buf, desc = "Goto Definition"})
+                       {opts, desc = "Goto Definition"})
         vim.keymap.set('n', 'K', vim.lsp.buf.hover,
-                       {buffer = ev.buf, desc = "Hover"})
+                       {opts, desc = "Hover"})
         vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation,
-                       {buffer = ev.buf, desc = "Goto Implementation"})
+                       {opts, desc = "Goto Implementation"})
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
-                       {buffer = ev.buf, desc = "Singnature Help"})
-        -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, { buffer = ev.buf })
-        -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, { buffer = ev.buf })
-        vim.keymap.set('n', '<space>wl', function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, {buffer = ev.buf, desc = "List Workspace Folders"})
-        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition,
-                       {buffer = ev.buf, desc = "Goto Type Definition"})
-        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename,
-                       {buffer = ev.buf, desc = "Rename"})
-        vim.keymap.set({'n', 'v'}, '<space>ca', vim.lsp.buf.code_action,
-                       {buffer = ev.buf, desc = "Code Action"})
+                       {opts, desc = "Singnature Help"})
+        -- vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { opts })
+        -- vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, { opts })
+        vim.keymap.set('n', '<leader>wl', function()
+            print(vim.inspect(vim.lsp.buf.list_workleader_folders()))
+        end, {opts, desc = "List Workleader Folders"})
+        vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition,
+                       {opts, desc = "Goto Type Definition"})
+        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,
+                       {opts, desc = "Rename"})
+        vim.keymap.set({'n', 'v'}, '<leader>ca', vim.lsp.buf.code_action,
+                       {opts, desc = "Code Action"})
         vim.keymap.set('n', 'gr', vim.lsp.buf.references,
-                       {buffer = ev.buf, desc = "Show References"})
-        vim.keymap.set('n', '<space>f',
+                       {opts, desc = "Show References"})
+        vim.keymap.set('n', '<leader>f',
                        function() vim.lsp.buf.format {async = true} end,
-                       {buffer = ev.buf, desc = "Format"})
-    end
-})
+                       {opts, desc = "Format"})
+    --end
+end
+
+lspconfig.lua_ls.setup{
+    on_attach = on_attach
+}
+require'lspconfig'.clangd.setup {}
+
+--vim.cmd("LspStart")
+
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+--     callback = function(ev)
+--         -- Enable completion triggered by <c-x><c-o>
+--         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+--         -- Buffer local mappings.
+--         -- See `:help vim.lsp.*` for documentation on any of the below functions
+--         local opts = {buffer = ev.buf}
+--         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
+--                        {buffer = ev.buf, desc = "Goto Declaration"})
+--         vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
+--                        {buffer = ev.buf, desc = "Goto Definition"})
+--         vim.keymap.set('n', 'K', vim.lsp.buf.hover,
+--                        {buffer = ev.buf, desc = "Hover"})
+--         vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation,
+--                        {buffer = ev.buf, desc = "Goto Implementation"})
+--         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
+--                        {buffer = ev.buf, desc = "Singnature Help"})
+--         -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, { buffer = ev.buf })
+--         -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, { buffer = ev.buf })
+--         vim.keymap.set('n', '<space>wl', function()
+--             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+--         end, {buffer = ev.buf, desc = "List Workspace Folders"})
+--         vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition,
+--                        {buffer = ev.buf, desc = "Goto Type Definition"})
+--         vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename,
+--                        {buffer = ev.buf, desc = "Rename"})
+--         vim.keymap.set({'n', 'v'}, '<space>ca', vim.lsp.buf.code_action,
+--                        {buffer = ev.buf, desc = "Code Action"})
+--         vim.keymap.set('n', 'gr', vim.lsp.buf.references,
+--                        {buffer = ev.buf, desc = "Show References"})
+--         vim.keymap.set('n', '<space>f',
+--                        function() vim.lsp.buf.format {async = true} end,
+--                        {buffer = ev.buf, desc = "Format"})
+--     end
+-- })
 
 local cmp = require 'cmp'
 
@@ -106,8 +153,10 @@ cmp.setup({
         end, {"i", "s"})
     }),
     sources = cmp.config.sources({
-        {name = 'nvim_lsp'}, {name = 'vsnip'} -- For vsnip users.
-        -- { name = 'luasnip' }, -- For luasnip users.
+        --{name = 'nvim_lsp'}, {name = 'vsnip'} -- For vsnip users.
+          { name = 'buffer' }, -- For luasnip users.
+          { name = 'luasnip' }, -- For luasnip users.
+          { name = 'path' }, -- For luasnip users.
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
     }, {{name = 'buffer'}})

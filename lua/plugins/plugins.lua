@@ -13,7 +13,17 @@ require("lazy").setup({
             -- refer to the configuration section below
         }
     },
-    {"hrsh7th/nvim-cmp"},
+    {
+      "hrsh7th/nvim-cmp",
+      event = "InsertEnter",
+      dependencies = { "rafamadriz/friendly-snippets" },
+      config = function ()
+      -- local cmp = require("cmp")
+        local LuaSnip = require("luasnip")
+
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end
+    },
     {"hrsh7th/cmp-buffer"}, 
     {"hrsh7th/cmp-path"},
     {
@@ -107,7 +117,7 @@ require("lazy").setup({
               },
         }
     end
-    }, 
+    },
     {
         "max397574/better-escape.nvim",
         event = "InsertEnter",
@@ -204,5 +214,9 @@ require("lazy").setup({
             vim.g["airline_symbols.dirty"]='⚡'
             
         end
+    },
+    {
+      "stevearc/dressing.nvim",
+      event = "VeryLazy"
     }
 })
