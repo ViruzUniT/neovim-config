@@ -1,2 +1,2 @@
-require("plugins")
-require("config")
+require("bootlazy")
+require("core")
