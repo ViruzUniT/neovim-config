@@ -4,7 +4,12 @@ return {
     lazy = false,
     config = function()
       require("mason").setup()
-    end
+    end,
+    opts = {
+      ensure_installed = {
+        "clang-format"
+      }
+    }
   },
   {
     "williamboman/mason-lspconfig.nvim",
@@ -22,9 +27,9 @@ return {
             package_uninstalled = "✗",
           },
         },
-        ensure_installed = {
-          "clang-format"
-        }
+        -- ensure_installed = {
+        --   "clang-format"
+        -- }
       })
 
       mason_lsp.setup({

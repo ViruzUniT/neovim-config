@@ -14,5 +14,5 @@ return {
     vim.keymap.set("n", "<C-m>", function() ui.nav_file(3) end)
     vim.keymap.set("n", "<C-a>", function() ui.nav_file(4) end)
   end,
-  lazy = false
+  VeryLazy = true
 }

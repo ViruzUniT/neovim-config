@@ -6,7 +6,7 @@ function Map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-Map("n", ";", ":", { nowait = true })
+-- Map("n", ";", ":", { nowait = true })
 Map("n", "J", "mzJ`z", { noremap = true, silent = true })
 Map("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true })
 Map("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true })

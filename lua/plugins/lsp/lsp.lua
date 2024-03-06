@@ -2,7 +2,7 @@ local config = function()
   local lspconfig = require("lspconfig")
   local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-  local on_attach = function(_, bufnr)
+  local _on_attach = function(_, _)
   end
 
   vim.cmd("LspStart")
@@ -21,7 +21,7 @@ local config = function()
       { buffer = ev.buf, desc = "Goto Declaration" })
     vim.keymap.set('n', 'gd', "<cmd> Telescope lsp_definitions<CR>", --vim.lsp.buf.definition,
       { buffer = ev.buf, desc = "Goto Definition" })
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover,
+   vim.keymap.set('n', 'K', vim.lsp.buf.hover,
       { buffer = ev.buf, desc = "Hover" })
     vim.keymap.set('n', '<leader>gi', "<cmd> Telescope lsp_implementations<CR>", --vim.lsp.buf.implementation,
       { buffer = ev.buf, desc = "Show Implementations" })
@@ -49,7 +49,7 @@ local config = function()
   local capabilities = cmp_nvim_lsp.default_capabilities()
 
   lspconfig["lua_ls"].setup({
-    on_attach = on_attach,
+    on_attach = _on_attach,
     capabilities = capabilities,
     settings = {
       Lua = {
@@ -68,7 +68,10 @@ local config = function()
   })
 
   lspconfig["clangd"].setup({
-    on_attach = on_attach,
+    on_attach = function (client, bufnr)
+      client.server_capabilities.signatureHelpProvider = false
+      _on_attach(client, bufnr)
+    end,
     capabilities = capabilities,
     filetypes = { "c", "cpp", "h", "hpp" }
   })
