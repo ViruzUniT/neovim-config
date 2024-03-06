@@ -1,4 +1,31 @@
 return {
+  "nvim-lualine/lualine.nvim",
+  lazy = false,
+  config = function()
+    -- vim.keymap.set("n", "<Tab>", "<cmd>bnext<CR>")
+    -- vim.keymap.set("n", "<S-Tab>", "<cmd>bprev<CR>")
+    -- vim.keymap.set("n", "<leader>x", "<cmd>bdelete<CR>", {desc = "Delete Current Buffer"})
+    require("lualine").setup {
+      options = {
+        icons_enabled = true,
+        theme = 'horizon',
+        component_separators = { left = '', right = "" },
+        section_separators = { left = '', right = '' }
+      },
+      sections = {
+        lualine_a = {
+          {
+            'mode',
+            draw_empty = false,
+            use_mode_colors = true
+          },
+        },
+        lualine_c = {
+          "filename", "os.date('%X, %x')", 'data', "require'lsp-status'.status()"
+        }
+      }
+    }
+  end
   -- "vim-airline/vim-airline",
   -- dependencies = { "vim-airline/vim-airline-themes" },
   -- lazy = false,
@@ -17,28 +44,4 @@ return {
   --   vim.g["airline_symbols.maxlinenr"] = ''
   --   vim.g["airline_symbols.dirty"] = '⚡'
   -- end
-  "nvim-lualine/lualine.nvim",
-  lazy = false,
-  config = function()
-    require("lualine").setup {
-      options = {
-        icons_enabled = true,
-        theme = 'horizon',
-        component_separators = '',
-        section_separators = {left = '', right = ''}
-      },
-      sections = {
-        lualine_a = {
-          {
-            'buffers',
-            draw_empty = false,
-            use_mode_colors = true
-          },
-        },
-        lualine_c = {
-          "os.date('%X, %x')", 'data', "require'lsp-status'.status()"
-        }
-      }
-    }
-  end
 }
