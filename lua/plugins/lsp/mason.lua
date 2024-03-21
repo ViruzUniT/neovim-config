@@ -7,7 +7,8 @@ return {
     end,
     opts = {
       ensure_installed = {
-        "clang-format"
+        "clang-format",
+        "rust-analyzer",
       }
     }
   },
