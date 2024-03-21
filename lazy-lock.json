@@ -31,6 +31,8 @@
   "nvim-treesitter-context": { "branch": "master", "commit": "b8b7e52c1517d401d7c519787d5dc4528c41291a" },
   "plenary.nvim": { "branch": "master", "commit": "f7adfc4b3f4f91aab6caebf42b3682945fbc35be" },
   "ripgrep": { "branch": "master", "commit": "e9abbc1a02de29dbe60e1b625d540c58759b23a6" },
+  "rust-tools.nvim": { "branch": "master", "commit": "676187908a1ce35ffcd727c654ed68d851299d3e" },
+  "rust.vim": { "branch": "master", "commit": "889b9a7515db477f4cb6808bef1769e53493c578" },
   "telescope.nvim": { "branch": "master", "commit": "7472420f8734c710bd7009081cef9b97f08a3821" },
   "transparent.nvim": { "branch": "main", "commit": "fd35a46f4b7c1b244249266bdcb2da3814f01724" },
   "undotree": { "branch": "master", "commit": "aa93a7e5890dbbebbc064cd22260721a6db1a196" },
