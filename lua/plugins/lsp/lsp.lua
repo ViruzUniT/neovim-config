@@ -21,8 +21,10 @@ local config = function()
         { buffer = ev.buf, desc = "Goto Declaration" })
       vim.keymap.set('n', 'gd', "<cmd> Telescope lsp_definitions<CR>", --vim.lsp.buf.definition,
         { buffer = ev.buf, desc = "Goto Definition" })
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover,
-        { buffer = ev.buf, desc = "Hover" })
+      if vim.bo.filetype ~= 'rust' then
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover,
+          { buffer = ev.buf, desc = "Hover" })
+      end
       vim.keymap.set('n', '<leader>gi', "<cmd> Telescope lsp_implementations<CR>", --vim.lsp.buf.implementation,
         { buffer = ev.buf, desc = "Show Implementations" })
       vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
@@ -47,7 +49,7 @@ local config = function()
   })
 
   local capabilities = cmp_nvim_lsp.default_capabilities()
-  capabilities.offsetEncoding = {"utf-16"}
+  capabilities.offsetEncoding = { "utf-16" }
   lspconfig["lua_ls"].setup({
     on_attach = _on_attach,
     capabilities = capabilities,
