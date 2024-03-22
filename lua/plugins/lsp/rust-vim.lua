@@ -16,7 +16,6 @@ return {
       rt.setup({
         server = {
           on_attach = function(_, _)
-            print("niggr")
             vim.keymap.set("n", "K", rt.hover_actions.hover_actions)
             vim.keymap.set("n", "<leader>ca", rt.code_action_group.code_action_group,
               { desc = "Rust Code Action" })
