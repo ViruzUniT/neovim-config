@@ -31,8 +31,14 @@ return {
           { desc = "Rust Code Action" })
         vim.keymap.set("n", "<leader>Re", rt.expand_macro.expand_macro, { desc = "Rust Expand Macro" })
         vim.keymap.set("n", "<leader>Rp", rt.parent_module.parent_module, { desc = "Rust Parent Module" })
-        vim.keymap.set("n", "<leader>RR", rt.runnables.runnables, { desc = "Rust Runnables" })
-        vim.keymap.set("n", "<leader>Rr", "<cmd>RustRun<CR>", { desc = "Rust Run" })
+        vim.keymap.set("n", "<leader>RR", function()
+          vim.cmd("w")
+          rt.runnables.runnables()
+        end, { desc = "Rust Runnables" })
+        vim.keymap.set("n", "<leader>Rr", function()
+          vim.cmd("w")
+          vim.cmd("RustRun")
+        end, { desc = "Rust Run" })
       end
     }
 
