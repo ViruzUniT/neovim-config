@@ -32,11 +32,11 @@ return {
         vim.keymap.set("n", "<leader>Re", rt.expand_macro.expand_macro, { desc = "Rust Expand Macro" })
         vim.keymap.set("n", "<leader>Rp", rt.parent_module.parent_module, { desc = "Rust Parent Module" })
         vim.keymap.set("n", "<leader>RR", function()
-          vim.cmd("w")
+          vim.cmd("wa")
           rt.runnables.runnables()
         end, { desc = "Rust Runnables" })
         vim.keymap.set("n", "<leader>Rr", function()
-          vim.cmd("w")
+          vim.cmd("wa")
           vim.cmd("RustRun")
         end, { desc = "Rust Run" })
       end
