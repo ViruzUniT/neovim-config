@@ -29,7 +29,7 @@ return {
         name = "Dapui",
         d = { '"_d', "Delete foreveer", noremap = true },
         b = { "<cmd> DapToggleBreakpoint <CR>", "Toggle Breakpoint at Line", noremap = true },
-        r = { "<cmd> DapContinue <CR>", "Start or Continue Debugger", noremap = true },
+        r = { "<cmd>lua if vim.bo.filetype == 'rust' then vim.cmd[[RustDebuggables]] else require'dap'.continue() end<CR>", "Start or Continue Debugger", noremap = true },
       },
       y = { '"+y', "Copy to clipboard" },
       u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
