@@ -35,10 +35,10 @@ return {
           vim.cmd("wa")
           rt.runnables.runnables()
         end, { desc = "Rust Runnables" })
-        vim.keymap.set("n", "<leader>Rr", function()
-          vim.cmd("wa")
-          vim.cmd("RustRun")
-        end, { desc = "Rust Run" })
+        -- vim.keymap.set("n", "<leader>Rr", function()
+        --   vim.cmd("wa")
+        --   vim.cmd("RustRun")
+        -- end, { desc = "Rust Run" })
       end
     }
 
