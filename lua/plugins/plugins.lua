@@ -1,6 +1,36 @@
 --require("lazy").setup({
 return {
--- "hrsh7th/cmp-nvim-lsp",
+  -- "hrsh7th/cmp-nvim-lsp",
+  {
+    "nvim-tree/nvim-tree.lua",
+    config = function ()
+      -- disable netrw at the very start of your init.lua
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+      
+      -- optionally enable 24-bit colour
+      vim.opt.termguicolors = true
+      
+      -- empty setup using defaults
+      require("nvim-tree").setup()
+      
+      -- OR setup with some options
+      require("nvim-tree").setup({
+        sort = {
+          sorter = "case_sensitive",
+        },
+        view = {
+          width = 30,
+        },
+        renderer = {
+          group_empty = true,
+        },
+        filters = {
+          dotfiles = true,
+        },
+      })
+    end
+  },
   {
     "numToStr/Comment.nvim",
     config = function()
@@ -9,10 +39,12 @@ return {
   },
   {
     "L3MON4D3/LuaSnip",
-    -- follow latest release.
-    version = "v2.*",     -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-    -- install jsregexp (optional!).
-    build = "make install_jsregexp"
+    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    build = "make install_jsregexp",
+    dependencies = { "dhawton/vsc-fivem", "JericoFX/QBCore-FX-Snippets" },
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end
   },
   { "nvim-lua/plenary.nvim" },
   {
@@ -55,4 +87,4 @@ return {
       require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
     end,
   },
-}--)
+} --)
