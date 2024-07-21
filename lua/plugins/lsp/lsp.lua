@@ -74,6 +74,10 @@ local config = function()
       client.server_capabilities.signatureHelpProvider = true
       _on_attach(client, bufnr)
     end,
+    cmd = {
+      "clangd",
+      "--header-insertion=never",
+    },
     capabilities = capabilities,
     filetypes = { "c", "cpp", "h", "hpp" }
   })

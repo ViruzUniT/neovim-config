@@ -11,6 +11,7 @@ return {
     local mark = require "harpoon.mark"
     local ui = require "harpoon.ui"
 
+    vim.keymap.set('n', '<C-n>', "<cmd> NvimTreeToggle<CR>")
     wk.register({
       p = {
         name = "Project",
@@ -33,6 +34,17 @@ return {
       },
       y = { '"+y', "Copy to clipboard" },
       u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
+
+      t = {
+        name = "Trouble",
+        d = { '<cmd>Trouble diagnostics<cr>', "Toggle Trouble Diagnostics" },
+        -- w = {'<cmd>TroubleToggle workspace_diagnostics<cr>', "Toggle Trouble Work Diagnostics"},
+        -- r = {'<cmd>TroubleToggle lsp_references<cr>', "Toggle Trouble LSP References"},
+        -- e = {'<cmd>TroubleToggle lsp_definitions<cr>', "Toggle Trouble LSP Definitions"},
+        -- t = {'<cmd>TroubleToggle lsp_type_definitions<cr>', "Toggle Trouble LSP Type Definitions"},
+        -- q = {'<cmd>TroubleToggle quickfix<cr>', "Toggle Trouble Quickfix"},
+        -- l = {'<cmd>TroubleToggle loclist<cr>', "Toggle Trouble Location List"},
+      },
 
       ["/"] = {
         function()

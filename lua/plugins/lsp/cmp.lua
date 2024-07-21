@@ -85,7 +85,7 @@ return {
         { name = "buffer" },
         { name = "nvim_lua" },
         { name = "path" },
-  }, { { name = 'buffer' } })
+      }, { { name = 'buffer' } })
     })
 
     -- Set configuration for specific filetype.
@@ -94,6 +94,5 @@ return {
         { name = 'git' } -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
       }, { { name = 'buffer' } })
     })
-
   end
 }
