@@ -76,7 +76,10 @@ local config = function()
     end,
     cmd = {
       "clangd",
-      "--header-insertion=never",
+      "--header-insertion=always",
+    },
+    init_options = {
+      fallbackFlags = { '--std=c++20' }
     },
     capabilities = capabilities,
     filetypes = { "c", "cpp", "h", "hpp" }
