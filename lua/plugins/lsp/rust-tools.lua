@@ -22,7 +22,7 @@ return {
           vim.keymap.set("n", "<leader>Rp", vim.cmd.RustLsp("parentModule"), { desc = "Rust Parent Module" })
           vim.keymap.set("n", "<leader>RR", function()
             vim.cmd("wa")
-            vim.cmd("runnables")
+            vim.cmd.RustLsp("runnables")
           end, { desc = "Rust Runnables" })
           -- vim.keymap.set("n", "<leader>Rr", function()
           --   vim.cmd("wa")
