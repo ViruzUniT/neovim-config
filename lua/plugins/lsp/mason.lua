@@ -9,6 +9,8 @@ return {
       ensure_installed = {
         "clang-format",
         "rust-analyzer",
+        "lua_ls",
+        "kotlin_language_server"
       }
     }
   },
