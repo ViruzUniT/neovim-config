@@ -86,6 +86,15 @@ local config = function()
   })
 
   lspconfig.pyright.setup {}
+
+  lspconfig["kotlin_language_server"].setup({
+    on_attach = function(client, bufnr)
+      client.server_capabilities.signatureHelpProvider = true
+      _on_attach(client, bufnr)
+    end,
+    capabilities = capabilities,
+    filetypes = { "kt" }
+  })
 end
 
 return {
