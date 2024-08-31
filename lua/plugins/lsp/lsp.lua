@@ -50,6 +50,7 @@ local config = function()
 
   local capabilities = cmp_nvim_lsp.default_capabilities()
   capabilities.offsetEncoding = { "utf-16" }
+
   lspconfig["lua_ls"].setup({
     on_attach = _on_attach,
     capabilities = capabilities,
@@ -86,15 +87,6 @@ local config = function()
   })
 
   lspconfig.pyright.setup {}
-
-  lspconfig["kotlin_language_server"].setup({
-    on_attach = function(client, bufnr)
-      client.server_capabilities.signatureHelpProvider = true
-      _on_attach(client, bufnr)
-    end,
-    capabilities = capabilities,
-    filetypes = { "kt" }
-  })
 end
 
 return {
@@ -104,6 +96,11 @@ return {
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp",                lazy = false },
     { "antosha417/nvim-lsp-file-operations", lazy = false, config = true }
+  },
+  opts = {
+    servers = {
+      kotlin_language_server = {},
+    }
   },
   config = config
 }
