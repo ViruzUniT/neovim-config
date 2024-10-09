@@ -87,6 +87,17 @@ local config = function()
   })
 
   lspconfig.pyright.setup {}
+  lspconfig.jdtls.setup {
+    filetypes = { "java" },
+    on_attach = function(_, _)
+      print("yay")
+      local cfg = {
+        cmd = { "jdtls" },
+        root_dir = require('jdtls.setup').find_root { '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' },
+      }
+      require('jdtls').start_or_attach(cfg)
+    end,
+  }
 end
 
 return {
