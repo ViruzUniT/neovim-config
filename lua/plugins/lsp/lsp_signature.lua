@@ -1,28 +1,11 @@
-return {}
--- return {
---   "ray-x/lsp_signature.nvim",
---   event = "InsertEnter",
---   opts = {
---     bind = true,
---     handler_opts = {
---       border = "rounded"
---     }
---   },
---   config = function(_, opts)
---     vim.api.nvim_create_autocmd("LspAttach", {
---       callback = function(args)
---         local bufnr = args.buf
---         local client = vim.lsp.get_client_by_id(args.data.client_id)
---         if vim.tbl_contains({ 'null-ls' }, client.name) then -- blacklist lsp
---           return
---         end
---         require("lsp_signature").on_attach({
---           bind = true,
---           handler_opts = {
---             border = "rounded"
---           }
---         }, bufnr)
---       end,
---     })
---   end
--- }
+-- return {}
+return {
+  "ray-x/lsp_signature.nvim",
+  event = "InsertEnter",
+  config = function(_, opts)
+    vim.keymap.set({ 'i', 'v', 's' }, '<M-x>', function()
+      print("M-x presed")
+      require('lsp_signature').toggle_float_win()
+    end, { silent = true, noremap = true, buffer = bufnr, desc = 'toggle signature' })
+  end
+}
