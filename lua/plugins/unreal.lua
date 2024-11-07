@@ -1,4 +1,8 @@
 return {
   "zadirion/Unreal.nvim",
-  dependencies = { "tpope/vim-dispatch" }
+  lazy = false,
+  dependencies = { { "tpope/vim-dispatch", lazy = false } },
+  config = function()
+    vim.g.unrealnvim_debug = true;
+  end
 }
