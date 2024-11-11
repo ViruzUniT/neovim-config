@@ -45,7 +45,7 @@ return {
         },
       },
       y = { '"+y', "Copy to clipboard" },
-      u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
+      u = { "<cmd>lua require('undotree').toggle()<cr>", "Toggle Undotree" },
 
       t = {
         name = "Trouble",
