@@ -1,6 +1,7 @@
 -- return {}
 return {
   "ray-x/lsp_signature.nvim",
+  -- lazy = false;
   event = "InsertEnter",
   config = function(_, opts)
     vim.keymap.set({ 'i', 'v', 's', 'n' }, '<M-k>', function()
