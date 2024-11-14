@@ -3,7 +3,6 @@ return {
   ft = "rust",
   version = '^5',
   lazy = false,
-  dependencies = "neovim/nvim-lspconfig",
   opts = {},
   config = function(_, _)
     vim.g.rustaceanvim = {
@@ -28,6 +27,7 @@ return {
           --   vim.cmd("wa")
           --   vim.cmd("RustRun")
           -- end, { desc = "Rust Run" })
+          vim.lsp.inlay_hint.enable(true);
         end
       }
     }
