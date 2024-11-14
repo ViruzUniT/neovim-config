@@ -1,10 +1,10 @@
--- return {}
 return {
   "ray-x/lsp_signature.nvim",
   -- lazy = false;
   event = "InsertEnter",
-  config = function(_, opts)
-    vim.keymap.set({ 'i', 'v', 's', 'n' }, '<M-k>', function()
+  config = function(_, _opts)
+    require('lsp_signature').toggle_float_win()
+    vim.keymap.set({ 'i', 'v', 's', 'n' }, '<C-k>', function()
       require('lsp_signature').toggle_float_win()
     end, { silent = true, noremap = true, buffer = bufnr, desc = 'toggle signature' })
   end

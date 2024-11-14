@@ -39,7 +39,7 @@ return {
         d = { '"_d', "Delete foreveer", noremap = true },
         b = { "<cmd> DapToggleBreakpoint <CR>", "Toggle Breakpoint at Line", noremap = true },
         r = {
-          "<cmd>lua if vim.bo.filetype == 'rust' then vim.cmd[[RustDebuggables]] else require'dap'.continue() end<CR>",
+          "<cmd>lua if vim.bo.filetype == 'rust' then vim.cmd.RustLsp('debuggables') else require'dap'.continue() end<CR>",
           "Start or Continue Debugger",
           noremap = true
         },
