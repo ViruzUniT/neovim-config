@@ -78,4 +78,4 @@ if vim.loop.os_uname().sysname ~= "Linux" then
 end
 
 --vim.api.colorscheme = "rose-pine-moon"
-vim.cmd("colorscheme rose-pine-moon")
+vim.cmd("colorscheme everforest")
