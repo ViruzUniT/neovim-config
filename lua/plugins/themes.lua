@@ -1,5 +1,6 @@
 return {
-  { "rose-pine/neovim" },
-  { "tomasr/molokai" },
-  { "sainnhe/everforest" },
+  { "rose-pine/neovim",         lazy = false },
+  { "sainnhe/gruvbox-material", lazy = false },
+  { "tomasr/molokai",           lazy = false },
+  { "sainnhe/everforest",       lazy = false },
 }
