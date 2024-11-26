@@ -71,6 +71,8 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
+vim.keymap.set("n", "+", "<C-S>", { desc = "Increment Number" })
+
 vim.opt.updatetime = 50
 
 if vim.loop.os_uname().sysname ~= "Linux" then
