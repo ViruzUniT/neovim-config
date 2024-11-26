@@ -81,7 +81,7 @@ local config = function()
       "--header-insertion=never",
     },
     init_options = {
-      fallbackFlags = { '--std=c++20' }
+      -- fallbackFlags = { '--std=c++20' }
     },
     capabilities = capabilities,
     filetypes = { "c", "cpp", "h", "hpp" }
@@ -98,6 +98,7 @@ local config = function()
       require('jdtls').start_or_attach(cfg)
     end,
   }
+  lspconfig.tsserver.setup {}
 end
 
 return {
