@@ -98,7 +98,7 @@ local config = function()
       require('jdtls').start_or_attach(cfg)
     end,
   }
-  lspconfig.tsserver.setup {}
+  lspconfig.ts_ls.setup {}
 end
 
 return {
