@@ -81,7 +81,7 @@ local config = function()
       "--header-insertion=never",
     },
     init_options = {
-      -- fallbackFlags = { '--std=c++20' }
+      fallbackFlags = { '--std=c++20' }
     },
     capabilities = capabilities,
     filetypes = { "c", "cpp", "h", "hpp" }
