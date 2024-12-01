@@ -27,8 +27,8 @@ local config = function()
       end
       vim.keymap.set('n', '<leader>gi', "<cmd> Telescope lsp_implementations<CR>", --vim.lsp.buf.implementation,
         { buffer = ev.buf, desc = "Show Implementations" })
-      vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
-        { buffer = ev.buf, desc = "Singnature Help" })
+      -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
+      --   { buffer = ev.buf, desc = "Singnature Help" })
       -- vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { buffer = ev.buf })
       -- vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, { buffer = ev.buf })
       vim.keymap.set('n', '<leader>wl', function()
