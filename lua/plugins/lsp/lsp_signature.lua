@@ -1,11 +1,18 @@
 return {
-  "ray-x/lsp_signature.nvim",
-  -- lazy = false;
-  event = "InsertEnter",
-  config = function(_, _opts)
-    require('lsp_signature').toggle_float_win()
-    vim.keymap.set({ 'i', 'v', 's' }, '<C-k>', function()
-      require('lsp_signature').toggle_float_win()
-    end, { silent = true, noremap = true, buffer = bufnr, desc = 'toggle signature' })
+  "ViruzUniT/lsp_signature.nvim",
+  event = "VeryLazy",
+  config = function(_, _)
+    require('lsp_signature').setup({
+      toggle_key = '<C-k>',
+      bind = true,
+      handler_opts = {
+        border = "rounded"
+      },
+      floating_window = false,
+    }
+    )
+    -- vim.keymap.set({ 'i', 'v', 's' }, '<C-k>', function()
+    --   require('lsp_signature').signature()
+    -- end, { silent = true, noremap = true, buffer = bufnr, desc = 'toggle signature' })
   end
 }
