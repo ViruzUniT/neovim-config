@@ -70,6 +70,7 @@ local config = function()
     },
     filetypes = { "lua" }
   })
+
   function OpenHeaderFile()
     local filename = vim.fn.expand('%:t')      -- Get the current file name
     local filepath = vim.fn.expand('%:p:h')    -- Get the current file path
@@ -77,7 +78,19 @@ local config = function()
 
     if headername ~= filename then
       vim.cmd('set splitright')     
-      vim.cmd('vsplit ' .. filepath .. '/' .. headername)
+      vim.cmd('vsplit ' .. filepath .. '/../include' .. '/' .. headername)
+    else
+      print("Not a .cpp file or corresponding .h file doesn't exist")
+    end
+  end
+  function OpenUnrealHeaderFile()
+    local filename = vim.fn.expand('%:t')      -- Get the current file name
+    local filepath = vim.fn.expand('%:p:h')    -- Get the current file path
+    local headername = filename:gsub('%.cpp$', '.h') -- Replace .cpp with .h
+
+    if headername ~= filename then
+      vim.cmd('set splitright')     
+      vim.cmd('vsplit ' .. filepath .. '/../Public/' .. '/' .. headername)
     else
       print("Not a .cpp file or corresponding .h file doesn't exist")
     end
@@ -87,6 +100,7 @@ local config = function()
       client.server_capabilities.signatureHelpProvider = true
       _on_attach(client, bufnr)
       vim.keymap.set('n', 'gh', [[:lua OpenHeaderFile()<CR>]], { noremap = true, silent = true })
+      vim.keymap.set('n', 'gp', [[:lua OpenUnrealHeaderFile()<CR>]], { noremap = true, silent = true })
     end,
     cmd = {
       "clangd",
