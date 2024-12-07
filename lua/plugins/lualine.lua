@@ -11,7 +11,8 @@ return {
         -- theme = 'horizon',
         theme = 'everforest',
         component_separators = { left = '', right = "" },
-        section_separators = { left = '', right = '' }
+        section_separators = { left = '', right = '' },
+        always_show_tabline = true,
       },
       sections = {
         lualine_a = {
