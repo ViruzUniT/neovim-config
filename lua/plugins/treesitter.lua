@@ -17,7 +17,6 @@ return {
           "markdown_inline",
           "cpp",
           "rust",
-          "kotlin"
         },
         highlight = {
           enable = true,
