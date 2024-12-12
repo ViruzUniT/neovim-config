@@ -25,14 +25,14 @@ return {
         mason_lsp.setup {
           automatic_installation = true,
           ensure_installed = {
-            "clang-format",
-            "rust-analyzer",
+            "clang_format",
+            "rust_analyzer",
             "lua_ls",
             "lua_ls",
             "clangd",
             "java_debug_adapter",
             "jdtls",
-            "java_test",
+            -- "java_test",
           },
         },
 
