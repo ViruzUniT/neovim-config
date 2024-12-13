@@ -126,8 +126,9 @@ local config = function()
       require('jdtls').start_or_attach(cfg)
     end,
   }
-  lspconfig.ts_ls.setup {}
-  lspconfig.css_lsp.setup {}
+  lspconfig.ts_ls.setup {
+    capabilities = capabilities
+  }
 end
 
 return {
