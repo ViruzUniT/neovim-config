@@ -26,13 +26,13 @@ return {
           automatic_installation = true,
           ensure_installed = {
             "clang-format",
-            "rust-analyzer",
+            "rust_analyzer",
             "lua_ls",
             "lua_ls",
             "clangd",
-            "java_debug_adapter",
+            -- "java_debug_adapter",
             "jdtls",
-            "java_test",
+            -- "java_test",
           },
         },
 
