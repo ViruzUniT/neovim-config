@@ -61,7 +61,8 @@ return {
     "xiyaowong/transparent.nvim",
     opts = {
       extra_groups = {
-        "TreesitterContext"
+        "TreesitterContext",
+        "LineNr"
         --"NormalFloat",
         --"NvimTreeNormal"
       }

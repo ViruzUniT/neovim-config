@@ -9,7 +9,7 @@ return {
       options = {
         icons_enabled = true,
         -- theme = 'horizon',
-        theme = 'everforest',
+        theme = 'modus-vivendi',
         component_separators = { left = '', right = "" },
         section_separators = { left = '', right = '' },
         always_show_tabline = true,
