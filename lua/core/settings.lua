@@ -79,5 +79,4 @@ if vim.loop.os_uname().sysname ~= "Linux" then
   vim.cmd('lang en_US')
 end
 
---vim.api.colorscheme = "rose-pine-moon"
-vim.cmd("colorscheme everforest")
+vim.cmd("colorscheme modus")
