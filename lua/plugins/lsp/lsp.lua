@@ -109,7 +109,7 @@ local config = function()
       "--header-insertion=never",
       "--background-index",          --index every file in workspaces
       "--clang-tidy",                -- additional linting and static analysis
-      "--index-threads=4",           -- number of threads for SPEEED
+      -- "--index-threads=4",           -- number of threads for SPEEED
       "--completion-style=detailed", -- detailed completion suggestions
     },
     init_options = {
