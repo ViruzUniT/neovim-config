@@ -112,6 +112,9 @@ local config = function()
       -- "--index-threads=4",           -- number of threads for SPEEED
       "--completion-style=detailed", -- detailed completion suggestions
     },
+    root_dir = function()
+      return vim.fn.getcwd()
+    end,
     init_options = {
       fallbackFlags = { '--std=c++20' }
     },
