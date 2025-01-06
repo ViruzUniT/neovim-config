@@ -37,6 +37,7 @@ return {
             "ruff",
             "mypy",
             "debugpy",
+            "black",
           },
         },
 
