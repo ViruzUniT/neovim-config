@@ -6,8 +6,18 @@ return {
       local java_debug_pkg = mason_registry.get_package("java-debug-adapter")
       local java_debug_path = java_debug_pkg:get_install_path()
       print(java_debug_path)
-
-      local dap = require('dap')
+    end
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function(_, _)
+      local path = 'debugpy'
+      require("dap-python").setup(path)
+      vim.keymap.set("n", "<leader>dpr", function()
+        require('dap-python').test_method()
+      end, { desc = "dap test method" })
     end
   },
   {
