@@ -33,6 +33,10 @@ return {
             -- "java_debug_adapter",
             "jdtls",
             -- "java_test",
+            "pyright",
+            "ruff",
+            "mypy",
+            "debugpy",
           },
         },
 
