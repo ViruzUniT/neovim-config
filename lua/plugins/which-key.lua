@@ -22,6 +22,7 @@ return {
         { "<leader>p",  group = "Project" },
         { "<leader>pf", "<cmd> Telescope find_files <CR>",                                               desc = "Find Files" },
         { "<leader>ps", "<cmd> Telescope live_grep <CR>",                                                desc = "Live Grep" },
+        { "<leader>pd", require("telescope.builtin").diagnostics,                                        desc = "Search Diagnostics" },
 
         { "<leader>a",  mark.add_file,                                                                   desc = "Harpoon file" },
         { "<leader>q",  group = "Harpoon" },
