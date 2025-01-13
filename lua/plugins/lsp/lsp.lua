@@ -1,5 +1,5 @@
 local config = function()
-  local lspconfig = require("lspconfig")
+ local lspconfig = require("lspconfig")
   local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
   local _on_attach = function(_, _)
@@ -8,29 +8,20 @@ local config = function()
   vim.cmd("LspStart")
   vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-    --on_attach = on_attach,
-    --capabilities = capabilities
     callback = function(ev)
-      -- Enable completion triggered by <c-x><c-o>
       vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-      -- Buffer local mappings.
-      -- See `:help vim.lsp.*` for documentation on any of the below functions
-      local opts = { buffer = ev.buf }
       vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
         { buffer = ev.buf, desc = "Goto Declaration" })
-      vim.keymap.set('n', 'gd', "<cmd> Telescope lsp_definitions<CR>", --vim.lsp.buf.definition,
+      vim.keymap.set('n', 'gd', "<cmd> Telescope lsp_definitions<CR>",
         { buffer = ev.buf, desc = "Goto Definition" })
       if vim.bo.filetype ~= 'rust' then
         vim.keymap.set('n', 'K', vim.lsp.buf.hover,
           { buffer = ev.buf, desc = "Hover" })
       end
-      vim.keymap.set('n', '<leader>gi', "<cmd> Telescope lsp_implementations<CR>", --vim.lsp.buf.implementation,
+      vim.keymap.set('n', '<leader>gi', "<cmd> Telescope lsp_implementations<CR>",
         { buffer = ev.buf, desc = "Show Implementations" })
-      -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
-      --   { buffer = ev.buf, desc = "Singnature Help" })
-      -- vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { buffer = ev.buf })
-      -- vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, { buffer = ev.buf })
+
       vim.keymap.set('n', '<leader>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workleader_folders()))
       end, { buffer = ev.buf, desc = "List Workleader Folders" })
@@ -40,7 +31,7 @@ local config = function()
         { buffer = ev.buf, desc = "Rename" })
       vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action,
         { buffer = ev.buf, desc = "Code Action" })
-      vim.keymap.set('n', 'gr', "<cmd> Telescope lsp_references<CR>", --vim.lsp.buf.references,
+      vim.keymap.set('n', 'gr', "<cmd> Telescope lsp_references<CR>",
         { buffer = ev.buf, desc = "Show References" })
       vim.keymap.set('n', '<leader>f',
         function() vim.lsp.buf.format { async = true } end,
@@ -71,7 +62,7 @@ local config = function()
     filetypes = { "lua" }
   })
 
-  function OpenHeaderFile()
+function OpenHeaderFile()
     local filename = vim.fn.expand('%:t')            -- Get the current file name
     local filepath = vim.fn.expand('%:p:h')          -- Get the current file path
     local headername = filename:gsub('%.cpp$', '.h') -- Replace .cpp with .h
@@ -122,21 +113,19 @@ local config = function()
     filetypes = { "c", "cpp", "h", "hpp" }
   })
 
-  lspconfig.pyright.setup {}
+lspconfig.pyright.setup ({capabilities = capabilities})
+
+require('java').setup()
   lspconfig.jdtls.setup {
     filetypes = { "java" },
-    on_attach = function(_, _)
-      local cfg = {
-        cmd = { "jdtls" },
-        root_dir = require('jdtls.setup').find_root { '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' },
-      }
-      require('jdtls').start_or_attach(cfg)
-    end,
-  }
-  lspconfig.ts_ls.setup {
+    cmd = { 'jdtls' },
+    root_dir = require('lspconfig.util').root_pattern('.git', 'pom.xml', 'build.gradle'),
     capabilities = capabilities
   }
+
 end
+
+
 
 return {
   "neovim/nvim-lspconfig",
@@ -144,12 +133,24 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp",                lazy = false },
-    { "antosha417/nvim-lsp-file-operations", lazy = false, config = true }
-  },
-  opts = {
-    servers = {
-      kotlin_language_server = {},
-    }
+    { "antosha417/nvim-lsp-file-operations", lazy = false, config = true },
+    {
+      'nvim-java/nvim-java',
+      lazy = false,
+      config = false,
+      dependencies = {
+        {
+          'neovim/nvim-lspconfig',
+          opts = {
+            setup = {
+              jdtls = function()
+                require('java').setup({})
+              end,
+            },
+          },
+        },
+      },
+    },
   },
   config = config
 }

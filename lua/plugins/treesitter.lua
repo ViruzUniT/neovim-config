@@ -17,6 +17,7 @@ return {
           "markdown_inline",
           "cpp",
           "rust",
+          "java"
         },
         highlight = {
           enable = true,

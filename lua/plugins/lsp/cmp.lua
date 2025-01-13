@@ -17,8 +17,6 @@ return {
 
     require("luasnip.loaders.from_vscode").lazy_load()
 
-    --local cmp = require 'cmp'
-
     local function border(hl_name)
       return {
         { "╭", hl_name }, { "─", hl_name }, { "╮", hl_name }, { "│", hl_name },
@@ -37,13 +35,13 @@ return {
         end
       },
       window = {
-        -- completion = cmp.config.window.bordered(),
+        completion = cmp.config.window.bordered(),
         completion = { scrollbar = false },
         documentation = {
           border = border "CmpDocBorder",
           winhighlight = "Normal:CmpDoc"
-        }
-        -- documentation = cmp.config.window.bordered(),
+        },
+         documentation = cmp.config.window.bordered(),
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -81,10 +79,8 @@ return {
       }),
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        -- {name = 'nvim_lsp_signature_help'},
         { name = "luasnip" },
         { name = "buffer" },
-        { name = "nvim_lua" },
         { name = "path" },
       }, { { name = 'buffer' } })
     })
@@ -97,3 +93,4 @@ return {
     })
   end
 }
+

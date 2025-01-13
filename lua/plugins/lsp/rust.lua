@@ -4,6 +4,7 @@ return {
   version = '^5',
   lazy = false,
   opts = {},
+  dependencies = { "rust-lang/rust.vim", ft = "rust", init = function() vim.g.rustfmt_autosave = 1 end },
   config = function(_, _)
     vim.g.rustaceanvim = {
       tools = {

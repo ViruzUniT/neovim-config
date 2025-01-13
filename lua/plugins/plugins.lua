@@ -1,6 +1,64 @@
---require("lazy").setup({
 return {
-  -- "hrsh7th/cmp-nvim-lsp",
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require('gitsigns').setup()
+    end,
+    dependencies = { "tpope/vim-fugitive", lazy = false },
+    lazy = false
+  },
+  {
+    "jiaoshijie/undotree",
+    dependencies = "nvim-lua/plenary.nvim",
+    config = true,
+    keys = { -- load the plugin only when using it's keybinding:
+      { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>", { desc = "Toggle Undotree" } },
+    },
+  },
+  {
+    "theprimeagen/harpoon",
+    config = function()
+      local mark = require "harpoon.mark"
+      local ui = require "harpoon.ui"
+
+      vim.keymap.set("n", "<leader>a", mark.add_file,
+        { desc = "Harpoon add File" })
+      vim.keymap.set("n", "<leader>qm", ui.toggle_quick_menu,
+        { desc = "Harpoon Quick Menu" })
+
+      vim.keymap.set("n", "<C-e>", function() ui.nav_file(1) end, { noremap = true })
+      vim.keymap.set("n", "<C-t>", function() ui.nav_file(2) end, { noremap = true })
+      vim.keymap.set("n", "<C-m>", function() ui.nav_file(3) end, { noremap = true })
+      vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end, { noremap = true })
+    end,
+    VeryLazy = true
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    event = 'VimEnter',
+    config = function()
+      require('telescope').setup {
+        -- You can put your default mappings / updates / etc. in here
+        --  All the info you're looking for is in `:help telescope.setup()`
+        --
+        -- defaults = {
+        --   mappings = {
+        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+        --   },
+        -- },
+        -- pickers = {}
+        extensions = {
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown(),
+          },
+        },
+      }
+
+      -- Enable Telescope extensions if they are installed
+      pcall(require('telescope').load_extension, 'fzf')
+      pcall(require('telescope').load_extension, 'ui-select')
+    end,
+  },
   {
     "nvim-tree/nvim-tree.lua",
     config = function()
@@ -12,7 +70,7 @@ return {
       vim.opt.termguicolors = true
 
       -- empty setup using defaults
-      require("nvim-tree").setup()
+      -- require("nvim-tree").setup()
 
       -- OR setup with some options
       require("nvim-tree").setup({
@@ -39,21 +97,11 @@ return {
   },
   {
     "L3MON4D3/LuaSnip",
-    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
     build = "make install_jsregexp",
     dependencies = { "dhawton/vsc-fivem", "JericoFX/QBCore-FX-Snippets" },
     config = function()
       require("luasnip.loaders.from_vscode").lazy_load()
     end
-  },
-  { "nvim-lua/plenary.nvim" },
-  {
-    "max397574/better-escape.nvim",
-    event = "InsertEnter",
-    --config = function() require("better_escape").setup() end
-    config = function()
-      require("better_escape").setup()
-    end,
   },
   { "sharkdp/fd" },
   { "BurntSushi/ripgrep" },
@@ -63,8 +111,6 @@ return {
       extra_groups = {
         "TreesitterContext",
         "LineNr"
-        --"NormalFloat",
-        --"NvimTreeNormal"
       }
     },
     lazy = false
@@ -89,83 +135,8 @@ return {
     end,
   },
   {
-    "mfussenegger/nvim-jdtls",
-    opts = function()
-      local mason_registry = require("mason-registry")
-      local lombok_jar = mason_registry.get_package("jdtls"):get_install_path() .. "/lombok.jar"
-      return {
-        -- How to find the root dir for a given filename. The default comes from
-        -- lspconfig which provides a function specifically for java projects.
-        root_dir = require("lspconfig.server_configurations.jdtls").default_config.root_dir,
-
-        -- How to find the project name for a given root dir.
-        project_name = function(root_dir)
-          return root_dir and vim.fs.basename(root_dir)
-        end,
-
-        -- Where are the config and workspace dirs for a project?
-        jdtls_config_dir = function(project_name)
-          return vim.fn.stdpath("cache") .. "/jdtls/" .. project_name .. "/config"
-        end,
-        jdtls_workspace_dir = function(project_name)
-          return vim.fn.stdpath("cache") .. "/jdtls/" .. project_name .. "/workspace"
-        end,
-
-        -- How to run jdtls. This can be overridden to a full java command-line
-        -- if the Python wrapper script doesn't suffice.
-        cmd = {
-          vim.fn.exepath("jdtls"),
-          string.format("--jvm-arg=-javaagent:%s", lombok_jar),
-        },
-        full_cmd = function(opts)
-          local fname = vim.api.nvim_buf_get_name(0)
-          local root_dir = opts.root_dir(fname)
-          local project_name = opts.project_name(root_dir)
-          local cmd = vim.deepcopy(opts.cmd)
-          if project_name then
-            vim.list_extend(cmd, {
-              "-configuration",
-              opts.jdtls_config_dir(project_name),
-              "-data",
-              opts.jdtls_workspace_dir(project_name),
-            })
-          end
-          return cmd
-        end,
-
-        -- These depend on nvim-dap, but can additionally be disabled by setting false here.
-        dap = { hotcodereplace = "auto", config_overrides = {} },
-        dap_main = {},
-        test = true,
-        settings = {
-          java = {
-            inlayHints = {
-              parameterNames = {
-                enabled = "all",
-              },
-            },
-          },
-        },
-      }
-    end
-  },
-  -- {
-  --   "mfussenegger/nvim-jdtls",
-  --   config = function()
-  --     local config = {
-  --       cmd = { '/path/to/jdt-language-server/bin/jdtls' },
-  --       root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
-  --     }
-  --     require('jdtls').start_or_attach(config)
-  --   end
-  -- },
-  {
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
-    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-    ---@module 'render-markdown'
-    ---@type render.md.UserConfig
     opts = {},
     lazy = false,
   },
