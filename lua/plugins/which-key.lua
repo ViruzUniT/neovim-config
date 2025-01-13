@@ -1,87 +1,55 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
-  init = function()
-    vim.o.timeout = true
-    vim.o.timeoutlen = 300
-  end,
   keys = { "<leader>", "<c-r>", '"', "'", "`", "c", "v", "g" },
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
     local wk = require("which-key")
     local mark = require "harpoon.mark"
     local ui = require "harpoon.ui"
 
-    vim.keymap.set('n', '<C-n>', "<cmd> NvimTreeToggle<CR>")
-    wk.register({
-      l = {
-        name = "LSP",
-        i = {
-          "<cmd> lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) <CR>",
-          "Toggle Inlay Hints",
-          noremap = true
-        }
-      },
-      p = {
-        name = "Project",
-        v = { vim.cmd.Ex, "Explorer" },
-        f = { "<cmd> Telescope find_files <CR>", "Find Files", noremap = true },
-        s = { "<cmd> Telescope live_grep <cr>", "Live Grep", noremap = true },
-      },
+    -- template:
+    -- {"", "", desc=""}
+    wk.add({
+      {
+        mode = { "n" },
 
-      a = { mark.add_file, "Harpoon add File" },
-      q = {
-        name = "Harpoon",
-        m = { ui.toggle_quick_menu, "Quick Menu" }
-      },
+        { "<C-n>",      "<cmd> NvimTreeToggle<CR>",                                                      desc = "Toggle Tree" },
 
-      d = {
-        name = "Dapui",
-        d = { '"_d', "Delete foreveer", noremap = true },
-        b = { "<cmd> DapToggleBreakpoint <CR>", "Toggle Breakpoint at Line", noremap = true },
-        r = {
+        { "<leader>l",  group = "LSP" },
+        { "<leader>li", "<cmd> lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) <CR>", desc = "Toggle Inlay hints" },
+
+        { "<leader>p",  group = "Project" },
+        { "<leader>pf", "<cmd> Telescope find_files <CR>",                                               desc = "Find Files" },
+        { "<leader>ps", "<cmd> Telescope live_grep <CR>",                                                desc = "Live Grep" },
+
+        { "<leader>a",  mark.add_file,                                                                   desc = "Harpoon file" },
+        { "<leader>q",  group = "Harpoon" },
+        { "<leader>qm", ui.toggle_quick_menu,                                                            desc = "Toggle Quick Menu" },
+
+        { "<leader>d",  group = "Dapui" },
+        { "<leader>db", "<cmd> DapToggleBreakpoint <CR>",                                                desc = "Toggle Breakpoint" },
+
+        { "<leader>y",  '"+y',                                                                           desc = "Copy to clipboard" },
+        { "<leader>dd", '"_d',                                                                           desc = "Delete Forever" },
+
+        { "<leader>td", "<cmd>Trouble diagnostics<CR>",                                                  desc = "Trouble Diagnostics" },
+
+        { "<leader>/",  function() require("Comment.api").toggle.linewise.current() end,                 desc = "Toggle Comment" },
+        {
+          "<leader>dr",
           "<cmd>lua if vim.bo.filetype == 'rust' then vim.cmd.RustLsp('debuggables') else require'dap'.continue() end<CR>",
-          "Start or Continue Debugger",
-          noremap = true
+          desc = "Start or Continue Debugger",
         },
       },
-      y = { '"+y', "Copy to clipboard" },
-      u = { "<cmd>lua require('undotree').toggle()<cr>", "Toggle Undotree" },
-
-      t = {
-        name = "Trouble",
-        d = { '<cmd>Trouble diagnostics<cr>', "Toggle Trouble Diagnostics" },
-        -- w = {'<cmd>TroubleToggle workspace_diagnostics<cr>', "Toggle Trouble Work Diagnostics"},
-        -- r = {'<cmd>TroubleToggle lsp_references<cr>', "Toggle Trouble LSP References"},
-        -- e = {'<cmd>TroubleToggle lsp_definitions<cr>', "Toggle Trouble LSP Definitions"},
-        -- t = {'<cmd>TroubleToggle lsp_type_definitions<cr>', "Toggle Trouble LSP Type Definitions"},
-        -- q = {'<cmd>TroubleToggle quickfix<cr>', "Toggle Trouble Quickfix"},
-        -- l = {'<cmd>TroubleToggle loclist<cr>', "Toggle Trouble Location List"},
+      {
+        mode = { "v" },
+        { "<leader>y",  '"+y',                                                                      desc = "Copy to clipboard" },
+        { "<leader>dd", '"_d',                                                                      desc = "Delete Forever" },
+        { "<leader>/",  function() require("Comment.api").toggle.linewise(vim.fn.visualmode()) end, desc = "Toggle Comment" },
       },
+      { "<leader>p", '"_dP', desc = "Replace without copy" }
 
-      ["/"] = {
-        function()
-          require("Comment.api").toggle.linewise.current()
-        end, "Toggle Comment"
-      }
-
-    }, { prefix = "<leader>" })
-
-    wk.register({
-      d = { '"_d', "Delete forever" },
-      y = { '"+y', "Copy to Clipboard" },
-
-      ["/"] = {
-        "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-        "Toggle comment",
-        noremap = true
-      }
-
-    }, { mode = "v", prefix = "<leader>" })
-
-
-    wk.register({
-      p = { '"_dP', "Replace without copy" },
-
-    }, { mode = "x", prefix = "<leader>" })
+    })
   end
 }

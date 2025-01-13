@@ -5,3 +5,4 @@ return {
     return require "core.configs.null-ls"
   end,
 }
+
