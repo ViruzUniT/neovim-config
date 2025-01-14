@@ -113,24 +113,13 @@ function OpenHeaderFile()
     filetypes = { "c", "cpp", "h", "hpp" }
   })
 
-<<<<<<< HEAD
 lspconfig.pyright.setup ({capabilities = capabilities})
 
 require('java').setup()
-=======
-  lspconfig.pyright.setup {}
-  require('java').setup()
->>>>>>> 5f4a4cdc216902597ddcc34945fc915bfab2c00f
   lspconfig.jdtls.setup {
     filetypes = { "java" },
     cmd = { 'jdtls' },
     root_dir = require('lspconfig.util').root_pattern('.git', 'pom.xml', 'build.gradle'),
-<<<<<<< HEAD
-=======
-    capabilities = capabilities
-  }
-  lspconfig.ts_ls.setup {
->>>>>>> 5f4a4cdc216902597ddcc34945fc915bfab2c00f
     capabilities = capabilities
   }
 
