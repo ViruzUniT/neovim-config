@@ -142,39 +142,6 @@ return {
     end,
   },
   {
-<<<<<<< HEAD
-=======
-    'nvim-java/nvim-java',
-    lazy = false,
-    config = false,
-    dependencies = {
-      {
-        'neovim/nvim-lspconfig',
-        opts = {
-          servers = {
-            -- jdtls = {
-            --   filetypes = { "java" },
-            --   on_attach = function(_, _)
-            --     local cfg = {
-            --       cmd = { "jdtls" },
-            --       root_dir = require('jdtls.setup').find_root { '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' },
-            --     }
-            --   end,
-            -- },
-          },
-          setup = {
-            jdtls = function()
-              require('java').setup({
-                -- Your custom nvim-java configuration goes here
-              })
-            end,
-          },
-        },
-      },
-    },
-  },
-  {
->>>>>>> 5f4a4cdc216902597ddcc34945fc915bfab2c00f
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
     opts = {},
