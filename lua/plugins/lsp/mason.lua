@@ -28,6 +28,8 @@ return {
 					"clangd",
 					"jdtls",
 					"pyright",
+					"ts_ls",
+					"emmet_ls",
 				},
 			})
 		end,
