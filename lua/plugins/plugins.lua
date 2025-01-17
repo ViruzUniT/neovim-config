@@ -1,7 +1,10 @@
 return {
 	{
 		"norcalli/nvim-colorizer.lua",
-		filetypes = { "css" },
+		ft = { "css" },
+		config = function()
+			require("colorizer").setup()
+		end,
 	},
 	{
 		"folke/trouble.nvim",
