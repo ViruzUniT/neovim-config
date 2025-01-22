@@ -8,8 +8,9 @@ return {
     lazy = false,
     config = function()
       require("modus-themes").setup({
-        transparent = true,
+        -- transparent = true,
+        variant = "deuteranopia",
       })
-    end
+    end,
   },
 }
