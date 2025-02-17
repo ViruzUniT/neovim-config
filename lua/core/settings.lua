@@ -22,10 +22,10 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.guicursor = "i:block"
 
-vim.opt.updatetime = 10
+vim.opt.updatetime = 700
 
 if vim.loop.os_uname().sysname ~= "Linux" then
-	vim.cmd("lang en_US")
+  vim.cmd("lang en_US")
 end
 
 vim.cmd("colorscheme modus")
@@ -43,18 +43,18 @@ vim.opt.smartcase = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 vim.diagnostic.config({
-	virtual_text = true,
-	signs = true,
-	underline = true,
-	update_in_insert = false,
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
 })
 
 vim.cmd([[
