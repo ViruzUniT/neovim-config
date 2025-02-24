@@ -137,6 +137,7 @@ local config = function()
 		cmd = { "jdtls" },
 		root_dir = require("lspconfig.util").root_pattern(".git", "pom.xml", "build.gradle"),
 		capabilities = capabilities,
+		settings = {},
 	})
 
 	lspconfig.ts_ls.setup({ capabilities = capabilities })
