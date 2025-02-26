@@ -168,6 +168,29 @@ return {
 			{ "antosha417/nvim-lsp-file-operations", lazy = false, config = true },
 		},
 		config = config,
+		opts = {
+			servers = {
+				jdtls = {
+					cmd = { "jdtls" },
+					root_dir = function(fname)
+						return require("lspconfig").util.root_pattern("pom.xml", "build.gradle", ".git")(fname)
+							or vim.fn.getcwd()
+					end,
+					settings = {
+						java = {
+							configuration = {
+								runtimes = {
+									{
+										name = "JavaSE-23",
+										path = "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath\\java.exe",
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 	},
 	{
 		"nvim-java/nvim-java",
