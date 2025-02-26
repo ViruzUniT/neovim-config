@@ -131,14 +131,13 @@ local config = function()
 
 	lspconfig.pyright.setup({ capabilities = capabilities })
 
-	require("java").setup()
-	lspconfig.jdtls.setup({
-		filetypes = { "java" },
-		cmd = { "jdtls" },
-		root_dir = require("lspconfig.util").root_pattern(".git", "pom.xml", "build.gradle"),
-		capabilities = capabilities,
-		settings = {},
+	require("java").setup({
+		jdk = {
+			auto_install = false,
+			path = "C:\\\\Program Files\\\\Common Files\\\\Oracle\\\\Java\\\\javapath\\\\java.exe",
+		},
 	})
+	require("lspconfig").jdtls.setup({})
 
 	lspconfig.ts_ls.setup({ capabilities = capabilities })
 	lspconfig.emmet_language_server.setup({
@@ -173,22 +172,24 @@ return {
 		"nvim-java/nvim-java",
 		config = false,
 		lazy = false,
-	},
-	dependencies = {
-		{
-			"neovim/nvim-lspconfig",
-			opts = {
-				servers = {
-					jdtls = {
-						-- Your custom jdtls settings goes here
+		dependencies = {
+			{
+				"neovim/nvim-lspconfig",
+				opts = {
+					servers = {
+						jdtls = {},
 					},
-				},
-				setup = {
-					jdtls = function()
-						require("java").setup({
-							-- Your custom nvim-java configuration goes here
-						})
-					end,
+					setup = {
+						jdtls = function()
+							require("java").setup({
+								jdk = {
+									auto_install = false,
+									path = "C:\\\\Program Files\\\\Common Files\\\\Oracle\\\\Java\\\\javapath\\\\java.exe",
+								},
+							})
+							require("lspconfig").jdtls.setup({})
+						end,
+					},
 				},
 			},
 		},
