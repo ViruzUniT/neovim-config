@@ -30,6 +30,7 @@ return {
 					"pyright",
 					"ts_ls",
 					"emmet_language_server",
+					"jdtls",
 				},
 			})
 		end,
