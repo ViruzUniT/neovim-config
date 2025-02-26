@@ -69,7 +69,7 @@ return {
 					desc = "Copy to clipboard",
 				},
 				{
-					"<leader>dd",
+					"<leader>d",
 					'"_d',
 					desc = "Delete Forever",
 				},
@@ -110,8 +110,8 @@ return {
 					'<ESC><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>',
 					desc = "Toggle Comment",
 				},
+				{ "<leader>p", '"_dP', desc = "Replace without copy" },
 			},
-			{ "<leader>p", '"_dP', desc = "Replace without copy" },
 		})
 	end,
 }
