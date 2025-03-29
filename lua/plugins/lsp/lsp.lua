@@ -131,12 +131,12 @@ local config = function()
 
 	lspconfig.pyright.setup({ capabilities = capabilities })
 
-	require("java").setup({
-		jdk = {
-			auto_install = false,
-			path = "C:\\\\Program Files\\\\Common Files\\\\Oracle\\\\Java\\\\javapath\\\\java.exe",
-		},
-	})
+	-- require("java").setup({
+	-- 	jdk = {
+	-- 		auto_install = false,
+	-- 		path = "C:\\\\Program Files\\\\Common Files\\\\Oracle\\\\Java\\\\javapath\\\\java.exe",
+	-- 	},
+	-- })
 	require("lspconfig").jdtls.setup({})
 
 	lspconfig.ts_ls.setup({ capabilities = capabilities })
@@ -167,31 +167,5 @@ return {
 			{ "antosha417/nvim-lsp-file-operations", lazy = false, config = true },
 		},
 		config = config,
-	},
-	{
-		"nvim-java/nvim-java",
-		config = false,
-		lazy = false,
-		dependencies = {
-			{
-				"neovim/nvim-lspconfig",
-				opts = {
-					servers = {
-						jdtls = {},
-					},
-					setup = {
-						jdtls = function()
-							require("java").setup({
-								jdk = {
-									auto_install = false,
-									path = "C:\\\\Program Files\\\\Common Files\\\\Oracle\\\\Java\\\\javapath\\\\java.exe",
-								},
-							})
-							require("lspconfig").jdtls.setup({})
-						end,
-					},
-				},
-			},
-		},
 	},
 }
