@@ -2,10 +2,6 @@ return {
   {
     "mfussenegger/nvim-dap",
     config = function()
-      local mason_registry = require("mason-registry")
-      local java_debug_pkg = mason_registry.get_package("java-debug-adapter")
-      local java_debug_path = java_debug_pkg:get_install_path()
-      print(java_debug_path)
     end
   },
   {
