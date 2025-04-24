@@ -123,7 +123,10 @@ local config = function()
 			return vim.fn.getcwd()
 		end,
 		init_options = {
-			fallbackFlags = { "--std=c++20" },
+			fallbackFlags = {
+				"--std=c++23",
+				"--std=c23",
+			},
 		},
 		capabilities = capabilities,
 		filetypes = { "c", "cpp", "h", "hpp" },
