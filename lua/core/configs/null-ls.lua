@@ -6,7 +6,7 @@ local b = null_ls.builtins
 local opts = {
 	sources = {
 		-- webdev stuff
-		-- b.formatting.deno_fmt, -- choosed deno for ts/js files cuz its very fast!
+		b.formatting.denols, -- choosed deno for ts/js files cuz its very fast!
 		b.formatting.prettier.with({ filetypes = { "html", "markdown", "css" } }), -- so prettier works only on these filetypes
 		b.formatting.black,
 
