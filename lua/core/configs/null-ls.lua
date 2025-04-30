@@ -7,7 +7,12 @@ local opts = {
 	sources = {
 		-- webdev stuff
 		-- b.formatting.denols, -- choosed deno for ts/js files cuz its very fast!
-		b.formatting.prettier.with({ filetypes = { "javascript", "typescript", "css", "html", "json", "yaml", "markdown" }, }), -- so prettier works only on these filetypes
+		b.formatting.prettier.with({
+			filetypes = { "javascript", "typescript", "css", "html", "json", "yaml", "markdown" },
+		}), -- so prettier works only on these filetypes
+		b.formatting.gofmt,
+		b.formatting.goimports,
+		b.formatting.golines,
 		b.formatting.black,
 
 		-- Lua
