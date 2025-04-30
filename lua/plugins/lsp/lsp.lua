@@ -1,6 +1,7 @@
 local config = function()
 	local lspconfig = require("lspconfig")
 	local cmp_nvim_lsp = require("cmp_nvim_lsp")
+	local util = require("lspconfig/util")
 
 	local _on_attach = function(_, _) end
 
@@ -157,6 +158,23 @@ local config = function()
 			"typescriptreact",
 		},
 		capabilities = capabilities,
+	})
+
+	lspconfig.gopls.setup({
+		on_attach = _on_attach,
+		capabilities = capabilities,
+		cmd = { "gopls" },
+		filetypes = { "go", "gomode", "gowork", "gotmpl" },
+		root_dir = util.root_pattern("go.work", "go.mod"),
+		settings = {
+			gopls = {
+				completeUnimported = true,
+				usePlaceholders = true,
+				analyses = {
+					unusedparams = true,
+				},
+			},
+		},
 	})
 end
 
