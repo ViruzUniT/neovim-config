@@ -14,10 +14,15 @@ return {
 			{
 				mode = { "n" },
 
+				-- {
+				-- 	"<C-n>",
+				-- 	"<cmd> NvimTreeToggle<CR>",
+				-- 	desc = "Toggle Tree",
+				-- },
 				{
 					"<C-n>",
-					"<cmd> NvimTreeToggle<CR>",
-					desc = "Toggle Tree",
+					"<cmd> Ex<CR>",
+					desc = "Ex",
 				},
 
 				{ "<leader>l", group = "LSP" },

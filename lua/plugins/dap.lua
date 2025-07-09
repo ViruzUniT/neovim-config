@@ -21,7 +21,7 @@ return {
 		dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
 		opts = {
 			handlers = {},
-			ensure_installed = { "codelldb", "clangd", "clang-format" },
+			ensure_installed = { "codelldb", "clangd", "clang-format", "java-debug-adapter" },
 		},
 	},
 	{
