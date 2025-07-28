@@ -51,7 +51,7 @@ local config = function()
 				{ buffer = ev.buf, desc = "Show References" }
 			)
 			vim.keymap.set("n", "<leader>f", function()
-				vim.lsp.buf.format({ async = true })
+				vim.lsp.buf.format({})
 			end, { buffer = ev.buf, desc = "Format" })
 		end,
 	})
@@ -172,6 +172,86 @@ local config = function()
 			jdtls_path_to_lsp_server,
 			"-data",
 			jdtls_workspace_dir,
+		},
+
+		settings = {
+			java = {
+				-- home = "/Users/ivanermolaev/Library/Java/vi/temurin-18.0.1/Contents/Home/",
+				eclipse = {
+					downloadSources = true,
+				},
+				configuration = {
+					updateBuildConfiguration = "interactive",
+					-- runtimes = {
+					-- 	{
+					-- 		name = "JavaSE-21",
+					-- 		path = "C:/jdk-22.0.4",
+					-- 	},
+					-- 		{
+					-- 			name = "JavaSE-17",
+					-- 			path = "/Users/ivanermolaev/Library/Java/JavaVirtualMachines/temurin-17.0.4/Contents/Home",
+					-- 		},
+					-- 	},
+					-- },
+					maven = {
+						downloadSources = true,
+					},
+					implementationsCodeLens = {
+						enabled = true,
+					},
+					referencesCodeLens = {
+						enabled = true,
+					},
+					references = {
+						includeDecompiledSources = true,
+					},
+					format = {
+						enabled = false,
+						settings = {
+							url = vim.fn.stdpath("config") .. "/lang-servers/intellij-java-google-style.xml",
+							profile = "GoogleStyle",
+						},
+					},
+				},
+				signatureHelp = { enabled = true },
+				completion = {
+					favoriteStaticMembers = {
+						"org.hamcrest.MatcherAssert.assertThat",
+						"org.hamcrest.Matchers.*",
+						"org.hamcrest.CoreMatchers.*",
+						"org.junit.jupiter.api.Assertions.*",
+						"java.util.Objects.requireNonNull",
+						"java.util.Objects.requireNonNullElse",
+						"org.mockito.Mockito.*",
+					},
+					importOrder = {
+						"java",
+						"javax",
+						"com",
+						"org",
+					},
+				},
+				extendedClientCapabilities = require("cmp_nvim_lsp").default_capabilities(),
+				sources = {
+					organizeImports = {
+						starThreshold = 9999,
+						staticStarThreshold = 9999,
+					},
+				},
+				codeGeneration = {
+					toString = {
+						template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+					},
+					useBlocks = true,
+				},
+			},
+
+			flags = {
+				allow_incremental_sync = true,
+			},
+			init_options = {
+				bundles = {},
+			},
 		},
 	})
 

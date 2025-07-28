@@ -20,6 +20,10 @@ local opts = {
 
 		-- cpp
 		b.formatting.clang_format,
+
+		b.formatting.google_java_format.with({
+			filetypes = { "java" },
+		}),
 	},
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
@@ -31,7 +35,9 @@ local opts = {
 				group = autogroup,
 				buffer = bufnr,
 				callback = function()
-					vim.lsp.buf.format({ bufnr = bufnr })
+					vim.lsp.buf.format({
+						bufnr = bufnr,
+					})
 				end,
 			})
 		end
