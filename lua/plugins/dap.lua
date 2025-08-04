@@ -1,28 +1,36 @@
 return {
 	{
 		"mfussenegger/nvim-dap",
-		config = function() end,
-	},
-	{
-		"mfussenegger/nvim-dap-python",
-		ft = "python",
-		dependencies = { "mfussenegger/nvim-dap" },
-		config = function(_, _)
-			local path = "debugpy"
-			require("dap-python").setup(path)
-			vim.keymap.set("n", "<leader>dpr", function()
-				require("dap-python").test_method()
-			end, { desc = "dap test method" })
+		config = function()
+			local dap = require("dap")
+
+			dap.adapters.python = {
+				type = "executable",
+				command = "python", -- or the path to your python executable
+				args = { "-m", "debugpy.adapter" },
+			}
+
+			dap.configurations.python = {
+				{
+					type = "python",
+					request = "launch",
+					name = "Launch file",
+					program = "${file}",
+					pythonPath = function()
+						-- This is a great way to handle virtual environments
+						local venv_path = os.getenv("VIRTUAL_ENV")
+						if venv_path then
+							return venv_path .. "/bin/python"
+						end
+						local cwd = vim.fn.getcwd()
+						if vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+							return cwd .. "/.venv/bin/python"
+						end
+						return "python" -- Fallback to system python
+					end,
+				},
+			}
 		end,
-	},
-	{
-		"jay-babu/mason-nvim-dap.nvim",
-		event = "VeryLazy",
-		dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
-		opts = {
-			handlers = {},
-			ensure_installed = { "codelldb", "clangd", "clang-format", "java-debug-adapter" },
-		},
 	},
 	{
 		"rcarriga/nvim-dap-ui",
@@ -47,8 +55,29 @@ return {
 		"leoluz/nvim-dap-go",
 		ft = "go",
 		dependencies = "mfussenegger/nvim-dap",
-		config = function(_, opts)
-			require("dap-go").setup(opts)
+		config = function()
+			require("dap-go").setup({
+				dap_configurations = {
+					{
+						type = "go",
+						name = "Attach remote",
+						mode = "remote",
+						request = "attach",
+					},
+				},
+				delve = {
+					path = "dlv.cmd",
+					initialize_timeout_sec = 20,
+					port = "${port}",
+					args = {},
+					build_flags = {},
+					detached = vim.fn.has("win32") == 0,
+					cwd = nil,
+				},
+				tests = {
+					verbose = false,
+				},
+			})
 		end,
 	},
 }

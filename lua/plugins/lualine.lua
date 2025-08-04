@@ -4,9 +4,9 @@ return {
 	config = function()
 		require("lualine").setup({
 			options = {
-				icons_enabled = false,
-				-- theme = "modus-vivendi",
-				theme = "moonfly",
+				icons_enabled = true,
+				theme = "modus-vivendi",
+				-- theme = "moonfly",
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
 				always_show_tabline = true,
@@ -22,8 +22,10 @@ return {
 				lualine_c = {
 					"filename",
 					"os.date('%X | %x')",
-					"data",
-					-- "require'lsp-status'.status()",
+				},
+				lualine_x = {
+					"fileformat",
+					"filetype",
 				},
 			},
 		})
