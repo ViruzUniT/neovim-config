@@ -146,8 +146,10 @@ local config = function()
 	end
 
 	local jdtls_project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-	local jdtls_workspace_dir = vim.fn.stdpath("data") .. "\\site\\java\\workspace-root\\" .. jdtls_project_name
-	os.execute("mkdir " .. jdtls_workspace_dir)
+	local jdtls_workspace_dir = vim.fn.stdpath("data") .. "\\site\\java\\workspace-root\\"
+	local jdtls_project_dir = jdtls_workspace_dir .. jdtls_project_name
+	os.execute("rmdir " .. jdtls_workspace_dir)
+	os.execute("mkdir " .. jdtls_project_dir)
 
 	lspconfig["jdtls"].setup({
 		-- cmd = {},
