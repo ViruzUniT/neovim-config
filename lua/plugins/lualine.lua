@@ -4,7 +4,7 @@ return {
 	config = function()
 		require("lualine").setup({
 			options = {
-				icons_enabled = true,
+				icons_enabled = false,
 				-- theme = "modus-vivendi",
 				theme = "moonfly",
 				component_separators = { left = "", right = "" },
