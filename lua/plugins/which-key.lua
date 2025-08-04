@@ -7,84 +7,82 @@ return {
 		local wk = require("which-key")
 		local mark = require("harpoon.mark")
 		local ui = require("harpoon.ui")
+    -- template:
+    -- {"", "", desc=""}
+    wk.add({
+      {
+        mode = { "n" },
 
-		-- template:
-		-- {"", "", desc=""}
-		wk.add({
-			{
-				mode = { "n" },
+        -- {
+        -- 	"<C-n>",
+        -- 	"<cmd> NvimTreeToggle<CR>",
+        -- 	desc = "Toggle Tree",
+        -- },
+        {
+          "<C-n>",
+          "<cmd> Ex<CR>",
+          desc = "Ex",
+        },
 
-				-- {
-				-- 	"<C-n>",
-				-- 	"<cmd> NvimTreeToggle<CR>",
-				-- 	desc = "Toggle Tree",
-				-- },
-				{
-					"<C-n>",
-					"<cmd> Ex<CR>",
-					desc = "Ex",
-				},
+        { "<leader>l", group = "LSP" },
+        {
+          "<leader>li",
+          "<cmd> lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) <CR>",
+          desc = "Toggle Inlay hints",
+        },
 
-				{ "<leader>l", group = "LSP" },
-				{
-					"<leader>li",
-					"<cmd> lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) <CR>",
-					desc = "Toggle Inlay hints",
-				},
+        { "<leader>p", group = "Project" },
+        {
+          "<leader>pf",
+          "<cmd> Telescope find_files <CR>",
+          desc = "Find Files",
+        },
+        {
+          "<leader>ps",
+          "<cmd> Telescope live_grep <CR>",
+          desc = "Live Grep",
+        },
+        {
+          "<leader>pd",
+          require("telescope.builtin").diagnostics,
+          desc = "Search Diagnostics",
+        },
 
-				{ "<leader>p", group = "Project" },
-				{
-					"<leader>pf",
-					"<cmd> Telescope find_files <CR>",
-					desc = "Find Files",
-				},
-				{
-					"<leader>ps",
-					"<cmd> Telescope live_grep <CR>",
-					desc = "Live Grep",
-				},
-				{
-					"<leader>pd",
-					require("telescope.builtin").diagnostics,
-					desc = "Search Diagnostics",
-				},
+        {
+          "<leader>a",
+          mark.add_file,
+          desc = "Harpoon file",
+        },
+        { "<leader>q", group = "Harpoon" },
+        {
+          "<leader>qm",
+          ui.toggle_quick_menu,
+          desc = "Toggle Quick Menu",
+        },
 
-				{
-					"<leader>a",
-					mark.add_file,
-					desc = "Harpoon file",
-				},
-				{ "<leader>q", group = "Harpoon" },
-				{
-					"<leader>qm",
-					ui.toggle_quick_menu,
-					desc = "Toggle Quick Menu",
-				},
+        { "<leader>d", group = "Dapui" },
+        {
+          "<leader>db",
+          "<cmd> DapToggleBreakpoint <CR>",
+          desc = "Toggle Breakpoint",
+        },
 
-				{ "<leader>d", group = "Dapui" },
-				{
-					"<leader>db",
-					"<cmd> DapToggleBreakpoint <CR>",
-					desc = "Toggle Breakpoint",
-				},
+        {
+          "<leader>y",
+          '"+y',
+          desc = "Copy to clipboard",
+        },
+        {
+          "<leader>d",
+          '"_d',
+          desc = "Delete Forever",
+        },
 
-				{
-					"<leader>y",
-					'"+y',
-					desc = "Copy to clipboard",
-				},
-				{
-					"<leader>d",
-					'"_d',
-					desc = "Delete Forever",
-				},
-
-				{
-					"<leader>td",
-					"<cmd>Trouble diagnostics<CR>",
-					desc = "Trouble Diagnostics",
-				},
-
+        {
+          "<leader>td",
+          "<cmd>Trouble diagnostics<CR>",
+          desc = "Trouble Diagnostics",
+        },
 				{
 					"<leader>/",
 					function()
