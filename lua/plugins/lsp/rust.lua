@@ -1,23 +1,28 @@
 return {
   "mrcjkb/rustaceanvim",
   ft = "rust",
-  version = '^5',
+  version = "^5",
   lazy = false,
   opts = {},
-  dependencies = { "rust-lang/rust.vim", ft = "rust", init = function() vim.g.rustfmt_autosave = 1 end },
+  dependencies = {
+    "rust-lang/rust.vim",
+    ft = "rust",
+    init = function()
+      vim.g.rustfmt_autosave = 1
+    end,
+  },
   config = function(_, _)
     vim.g.rustaceanvim = {
       tools = {
         hover_actions = {
           auto_focus = true,
-        }
+        },
       },
       server = {
         capabilities = require("cmp_nvim_lsp").default_capabilities(),
         on_attach = function(_, _)
-          vim.keymap.set("n", "K", vim.cmd.RustLsp { 'hover', 'actions' }, {})
-          vim.keymap.set("n", "<leader>ca", vim.cmd.RustLsp('codeAction'),
-            { desc = "Rust Code Action" })
+          vim.keymap.set("n", "K", vim.cmd.RustLsp({ "hover", "actions" }), {})
+          vim.keymap.set("n", "<leader>ca", vim.cmd.RustLsp("codeAction"), { desc = "Rust Code Action" })
           vim.keymap.set("n", "<leader>Re", vim.cmd.RustLsp("expandMacro"), { desc = "Rust Expand Macro" })
           vim.keymap.set("n", "<leader>Rp", vim.cmd.RustLsp("parentModule"), { desc = "Rust Parent Module" })
           vim.keymap.set("n", "<leader>RR", function()
@@ -28,9 +33,9 @@ return {
           --   vim.cmd("wa")
           --   vim.cmd("RustRun")
           -- end, { desc = "Rust Run" })
-          vim.lsp.inlay_hint.enable(true);
-        end
-      }
+          vim.lsp.inlay_hint.enable(true)
+        end,
+      },
     }
-  end
+  end,
 }
