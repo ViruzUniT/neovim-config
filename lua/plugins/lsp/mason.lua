@@ -20,7 +20,10 @@ return {
 
       -- enable mason and configure icons
       mason_lsp.setup({
-        automatic_installation = true,
+        automatic_installation = false,
+        automatic_enable = {
+          exlude = { "jdtls", "gopls" },
+        },
         ensure_installed = {
           "tailwindcss",
           "rust_analyzer",
