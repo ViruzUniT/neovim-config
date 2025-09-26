@@ -1,9 +1,9 @@
 vim.lsp.enable("lua_ls")
--- vim.lsp.enable("emmet")
+vim.lsp.enable("emmet")
 vim.lsp.enable("clangd")
 vim.lsp.enable("gopls")
--- vim.lsp.enable("jdtls")
--- vim.lsp.enable("pyright")
+vim.lsp.enable("jdtls")
+vim.lsp.enable("pyright")
 vim.lsp.enable("ts_ls")
 
 vim.diagnostic.config({
