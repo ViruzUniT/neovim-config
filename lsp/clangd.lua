@@ -42,14 +42,14 @@ local cfg = {
 	-- root_markers = function()
 	-- 	return vim.fn.getcwd()
 	-- end,
-	init_options = {
-		fallbackFlags = function()
-			if vim.bo.filetype == "c" or vim.bo.filetype == "h" then
-				return { "--std=c23" }
-			else
-				return { "--std=c++23" }
-			end
-		end,
-	},
+	-- init_options = {
+	-- 	fallbackFlags = function()
+	-- 		if vim.bo.filetype == "c" or vim.bo.filetype == "h" then
+	-- 			return { "--std=c23" }
+	-- 		else
+	-- 			return { "--std=c++23" }
+	-- 		end
+	-- 	end,
+	-- },
 }
 return cfg

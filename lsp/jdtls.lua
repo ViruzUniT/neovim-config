@@ -32,27 +32,37 @@ local function load_keymaps()
 	)
 end
 
-local jdtls_path = vim.fn.stdpath("data") .. "\\mason\\packages\\jdtls"
-local jdtls_path_to_lsp_server = jdtls_path .. "\\config_win"
-local jdtls_path_to_plugins = vim.fn.stdpath("data") .. "\\mason\\packages\\jdtls\\"
-local jdtls_path_to_jar = jdtls_path_to_plugins .. "plugins\\org.eclipse.equinox.launcher_1.7.0.v20250331-1702.jar"
+local jdtls_path = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
+local jdtls_path_to_plugins = vim.fn.stdpath("data") .. "/mason/packages/jdtls/"
+local jdtls_path_to_jar = vim.fn.glob(jdtls_path_to_plugins .. "plugins/org.eclipse.equinox.launcher_*.jar")
 local jdtls_lombok_path = jdtls_path_to_plugins .. "lombok.jar"
-
--- local jdtls_root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
--- local jdtls_root_dir = require("jdtls.setup").find_root(jdtls_root_markers)
--- local jdtls_root_dir = vim.fn.getcwd()
--- if jdtls_root_dir == "" then
---   return
--- end
-
 local jdtls_project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-local jdtls_workspace_dir = vim.fn.stdpath("data") .. "\\site\\java\\workspace-root\\"
-local jdtls_project_dir = jdtls_workspace_dir .. jdtls_project_name
-os.execute("rmdir " .. jdtls_workspace_dir)
-os.execute("mkdir " .. jdtls_project_dir)
+local jdtls_workspace_dir = vim.fn.stdpath("data") .. "/site/java/workspace-root/"
+local jdtls_path_to_lsp_server
+
+if vim.loop.os_uname().sysname ~= "Linux" then
+	jdtls_path_to_lsp_server = jdtls_path .. "/config_win"
+else
+	jdtls_path_to_lsp_server = jdtls_path .. "/config_linux"
+end
+
 local cfg = {
-  filetypes = { "java" }
-	root_markers = {{  "mvnw", "gradlew", "pom.xml", "build.gradle"},  ".git"},
+	on_attach = function(_)
+		-- local jdtls_root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
+		-- local jdtls_root_dir = require("jdtls.setup").find_root(jdtls_root_markers)
+		-- local jdtls_root_dir = vim.fn.getcwd()
+		-- end
+
+		local jdtls_project_dir = jdtls_workspace_dir .. jdtls_project_name
+		if vim.loop.os_uname().sysname ~= "Linux" then
+			os.execute("rmdir " .. jdtls_project_dir)
+		else
+			os.execute("rm -rf " .. jdtls_project_dir)
+		end
+		vim.fn.mkdir(jdtls_workspace_dir, "p")
+	end,
+	filetypes = { "java" },
+	root_markers = { { "mvnw", "gradlew", "pom.xml", "build.gradle" }, ".git" },
 	cmd = {
 		"java",
 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
@@ -61,7 +71,7 @@ local cfg = {
 		"-Dlog.protocol=true",
 		"-Dlog.level=ALL",
 		"-javaagent:" .. jdtls_lombok_path,
-		"-Xms1g",
+		"-Xms3g",
 		"--add-modules=ALL-SYSTEM",
 		"--add-opens",
 		"java.base/java.util=ALL-UNNAMED",

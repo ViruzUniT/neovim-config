@@ -19,7 +19,7 @@ return {
 				},
 			},
 			server = {
-				-- capabilities = require("cmp_nvim_lsp").default_capabilities(),
+				capabilities = require("cmp_nvim_lsp").default_capabilities(),
 				on_attach = function(_, _)
 					vim.keymap.set("n", "K", vim.cmd.RustLsp({ "hover", "actions" }), {})
 					vim.keymap.set("n", "<leader>ca", vim.cmd.RustLsp("codeAction"), { desc = "Rust Code Action" })
