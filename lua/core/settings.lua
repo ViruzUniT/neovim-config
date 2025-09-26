@@ -34,6 +34,7 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 vim.g.have_nerd_font = true
+vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -45,17 +46,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
-
-vim.diagnostic.config({
-	virtual_text = true,
-	signs = true,
-	underline = true,
-	update_in_insert = false,
-})
-
-vim.cmd([[
-highlight DiagnosticUnderlineError gui=underline guisp=Red
-highlight DiagnosticUnderlineWarn gui=underline guisp=Yellow
-highlight DiagnosticUnderlineInfo gui=underline guisp=Blue
-highlight DiagnosticUnderlineHint gui=underline guisp=Green
-]])
