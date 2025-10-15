@@ -25,31 +25,35 @@ vim.opt.winborder = "rounded"
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		if client:supports_method("textDocument/completion") then
-			vim.opt.completeopt = { "menu", "menuone", "noselect", "fuzzy", "popup" }
-			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-
-			vim.keymap.set("i", "<Tab>", function()
-				if vim.fn.pumvisible() == 1 then
-					return vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
-				else
-					return vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
-				end
-			end, { expr = true, silent = true })
-			vim.keymap.set("i", "<S-Tab>", function()
-				if vim.fn.pumvisible() == 1 then
-					return vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
-				else
-					return vim.api.nvim_replace_termcodes("<S-Tab>", true, true, true)
-				end
-			end, { expr = true, silent = true })
-
-			vim.keymap.set("i", "<C-Space>", function()
-				vim.lsp.completion.get()
-			end)
-		end
+		-- if client:supports_method("textDocument/completion") then
+		-- 	vim.opt.completeopt = { "menu", "menuone", "noselect", "fuzzy", "popup" }
+		-- 	vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+		--
+		-- 	vim.keymap.set("i", "<Tab>", function()
+		-- 		if vim.fn.pumvisible() == 1 then
+		-- 			return vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
+		-- 		else
+		-- 			return vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
+		-- 		end
+		-- 	end, { expr = true, silent = true })
+		-- 	vim.keymap.set("i", "<S-Tab>", function()
+		-- 		if vim.fn.pumvisible() == 1 then
+		-- 			return vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
+		-- 		else
+		-- 			return vim.api.nvim_replace_termcodes("<S-Tab>", true, true, true)
+		-- 		end
+		-- 	end, { expr = true, silent = true })
+		--
+		-- 	vim.keymap.set("i", "<C-Space>", function()
+		-- 		vim.lsp.completion.get()
+		-- 	end)
+		-- end
 		if client:supports_method("textDocument/rename") then
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
+		end
+		if client:supports_method("textDocument/definition") then
+			vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>")
+			vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>")
 		end
 	end,
 })
