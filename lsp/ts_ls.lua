@@ -5,7 +5,7 @@ local root = vim.fs.dirname(vim.fs.find({
 }, { upward = true })[1])
 
 return {
-	filetypes = { "typescript" },
+	filetypes = { "typescript", "typescriptreact" },
 	cmd = { "typescript-language-server", "--stdio" },
 	root_dir = root,
 	init_options = {
