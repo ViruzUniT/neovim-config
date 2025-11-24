@@ -6,6 +6,7 @@ vim.lsp.enable("jdtls")
 vim.lsp.enable("pyright")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("tailwindcss")
+vim.lsp.enable("angularls")
 
 vim.diagnostic.config({
 	virtual_text = true,
