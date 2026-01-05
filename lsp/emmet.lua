@@ -12,5 +12,6 @@ local cfg = {
 		"typescriptreact",
 	},
 	root_markers = { { "index.html" }, ".git" },
+	cmd = { "emmet-language-server", "--stdio" },
 }
 return cfg

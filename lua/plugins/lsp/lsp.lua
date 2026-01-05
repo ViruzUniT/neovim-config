@@ -15,6 +15,17 @@ vim.diagnostic.config({
 	update_in_insert = false,
 })
 
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*",
+	callback = function()
+		vim.cmd([[
+      highlight DiagnosticUnderlineError   gui=underline guisp=#ffa00f cterm=underline
+      highlight DiagnosticUnderlineWarn    gui=underline guisp=#f7b731 cterm=underline
+      highlight DiagnosticUnderlineInfo    gui=underline guisp=#4ecdc4 cterm=underline
+      highlight DiagnosticUnderlineHint    gui=underline guisp=#8892bf cterm=underline
+    ]])
+	end,
+})
 vim.cmd([[
 highlight DiagnosticUnderlineError gui=underline guisp=Red
 highlight DiagnosticUnderlineWarn gui=underline guisp=Yellow

@@ -3,15 +3,21 @@ local root = vim.fs.dirname(vim.fs.find({
 	"nx.json",
 }, { upward = true })[1])
 
+local project_lib_path = vim.fn.expand("./node_modules/")
+local global_lib_path = vim.fn.expand("~/.bun/install/global/node_modules")
+
 return {
 	filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" },
 	cmd = {
 		"ngserver",
 		"--stdio",
 		"--tsProbeLocations",
-		"/home/dima/.bun/install/global/node_modules/typescript/lib",
+		global_lib_path,
+		project_lib_path,
 		"--ngProbeLocations",
-		"/home/dima/.bun/install/global/node_modules/@angular/language-server/bin",
+		global_lib_path,
+		project_lib_path,
+		"--includeCompletionsWithSnippetText",
 	},
 	root_dir = root,
 }

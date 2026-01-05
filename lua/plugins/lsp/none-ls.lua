@@ -20,6 +20,7 @@ return {
 						"yaml",
 						"markdown",
 						"typescriptreact",
+						"scss",
 					},
 				}), -- so prettier works only on these filetypes
 				b.formatting.gofmt,
