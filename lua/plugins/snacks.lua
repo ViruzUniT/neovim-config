@@ -9,7 +9,10 @@ return {
 		-- explorer = { enabled = true },
 		indent = { enabled = true },
 		input = { enabled = true },
-		-- picker = { enabled = true },
+		picker = {
+			enabled = true,
+			ui_select = true,
+		},
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
 	},

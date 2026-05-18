@@ -1,74 +1,91 @@
-vim.lsp.enable("lua_ls")
-vim.lsp.enable("emmet")
-vim.lsp.enable("clangd")
-vim.lsp.enable("gopls")
-vim.lsp.enable("jdtls")
-vim.lsp.enable("pyright")
-vim.lsp.enable("ts_ls")
-vim.lsp.enable("tailwindcss")
-vim.lsp.enable("angularls")
+return {
+	"neovim/nvim-lspconfig",
+	lazy = false,
+	dependencies = {
+		"hrsh7th/cmp-nvim-lsp",
+	},
+	config = function()
+		vim.lsp.config("clangd", dofile(vim.fn.stdpath("config") .. "/lsp/clangd.lua"))
 
-vim.diagnostic.config({
-	virtual_text = true,
-	signs = true,
-	underline = true,
-	update_in_insert = false,
-})
+		vim.lsp.enable("lua_ls")
+		vim.lsp.enable("emmet")
+		vim.lsp.enable("clangd")
+		vim.lsp.enable("gopls")
+		vim.lsp.enable("jdtls")
+		vim.lsp.enable("pyright")
+		vim.lsp.enable("ts_ls")
+		vim.lsp.enable("tailwindcss")
+		vim.lsp.enable("angularls")
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-	pattern = "*",
-	callback = function()
-		vim.cmd([[
+		vim.diagnostic.config({
+			virtual_text = true,
+			signs = true,
+			underline = true,
+			update_in_insert = false,
+		})
+
+		vim.api.nvim_create_autocmd("ColorScheme", {
+			pattern = "*",
+			callback = function()
+				vim.cmd([[
       highlight DiagnosticUnderlineError   gui=underline guisp=#ffa00f cterm=underline
       highlight DiagnosticUnderlineWarn    gui=underline guisp=#f7b731 cterm=underline
       highlight DiagnosticUnderlineInfo    gui=underline guisp=#4ecdc4 cterm=underline
       highlight DiagnosticUnderlineHint    gui=underline guisp=#8892bf cterm=underline
     ]])
-	end,
-})
-vim.cmd([[
+			end,
+		})
+		vim.cmd([[
 highlight DiagnosticUnderlineError gui=underline guisp=Red
 highlight DiagnosticUnderlineWarn gui=underline guisp=Yellow
 highlight DiagnosticUnderlineInfo gui=underline guisp=Blue
 highlight DiagnosticUnderlineHint gui=underline guisp=Green
 ]])
 
-vim.opt.winborder = "rounded"
+		vim.opt.winborder = "rounded"
 
-vim.api.nvim_create_autocmd("LspAttach", {
-	callback = function(ev)
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		-- if client:supports_method("textDocument/completion") then
-		-- 	vim.opt.completeopt = { "menu", "menuone", "noselect", "fuzzy", "popup" }
-		-- 	vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-		--
-		-- 	vim.keymap.set("i", "<Tab>", function()
-		-- 		if vim.fn.pumvisible() == 1 then
-		-- 			return vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
-		-- 		else
-		-- 			return vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
-		-- 		end
-		-- 	end, { expr = true, silent = true })
-		-- 	vim.keymap.set("i", "<S-Tab>", function()
-		-- 		if vim.fn.pumvisible() == 1 then
-		-- 			return vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
-		-- 		else
-		-- 			return vim.api.nvim_replace_termcodes("<S-Tab>", true, true, true)
-		-- 		end
-		-- 	end, { expr = true, silent = true })
-		--
-		-- 	vim.keymap.set("i", "<C-Space>", function()
-		-- 		vim.lsp.completion.get()
-		-- 	end)
-		-- end
-		if client:supports_method("textDocument/rename") then
-			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
-		end
-		if client:supports_method("textDocument/definition") then
-			vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>")
-			vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>")
-		end
+		vim.api.nvim_create_autocmd("LspAttach", {
+			callback = function(ev)
+				local client = vim.lsp.get_client_by_id(ev.data.client_id)
+				-- if client:supports_method("textDocument/completion") then
+				-- 	vim.opt.completeopt = { "menu", "menuone", "noselect", "fuzzy", "popup" }
+				-- 	vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+				--
+				-- 	vim.keymap.set("i", "<Tab>", function()
+				-- 		if vim.fn.pumvisible() == 1 then
+				-- 			return vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
+				-- 		else
+				-- 			return vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
+				-- 		end
+				-- 	end, { expr = true, silent = true })
+				-- 	vim.keymap.set("i", "<S-Tab>", function()
+				-- 		if vim.fn.pumvisible() == 1 then
+				-- 			return vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
+				-- 		else
+				-- 			return vim.api.nvim_replace_termcodes("<S-Tab>", true, true, true)
+				-- 		end
+				-- 	end, { expr = true, silent = true })
+				--
+				-- 	vim.keymap.set("i", "<C-Space>", function()
+				-- 		vim.lsp.completion.get()
+				-- 	end)
+				-- end
+				if client:supports_method("textDocument/rename") then
+					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
+				end
+				if client:supports_method("textDocument/codeAction") then
+					vim.keymap.set(
+						{ "n", "v" },
+						"<leader>ca",
+						vim.lsp.buf.code_action,
+						{ buffer = ev.buf, desc = "Code Action" }
+					)
+				end
+				if client:supports_method("textDocument/definition") then
+					vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>")
+					vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>")
+				end
+			end,
+		})
 	end,
-})
-
-return {}
+}

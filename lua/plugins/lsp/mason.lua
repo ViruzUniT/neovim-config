@@ -22,7 +22,7 @@ return {
 			mason_lsp.setup({
 				automatic_installation = false,
 				automatic_enable = {
-					exlude = { "jdtls", "gopls" },
+					exclude = { "clangd", "jdtls", "gopls" },
 				},
 				ensure_installed = {
 					"tailwindcss",

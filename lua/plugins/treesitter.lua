@@ -1,46 +1,57 @@
+local languages = {
+	"go",
+	"vim",
+	"html",
+	"css",
+	"javascript",
+	"typescript",
+	"tsx",
+	"c",
+	"markdown",
+	"markdown_inline",
+	"cpp",
+	"rust",
+	"java",
+	"lua",
+}
+
+local filetypes = {
+	"go",
+	"vim",
+	"html",
+	"css",
+	"javascript",
+	"typescript",
+	"typescriptreact",
+	"c",
+	"markdown",
+	"cpp",
+	"rust",
+	"java",
+	"lua",
+}
+
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		lazy = false,
+		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.install").prefer_git = false
-			require("nvim-treesitter.install").compilers = { "clang", "gcc" }
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = {
-					"go",
-					"vim",
-					"html",
-					"css",
-					"javascript",
-					"typescript",
-					"tsx",
-					"c",
-					"markdown",
-					"markdown_inline",
-					"cpp",
-					"rust",
-					"java",
-					"lua",
-				},
-				highlight = {
-					enable = true,
+			local treesitter = require("nvim-treesitter")
+			treesitter.setup()
 
-					-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-					-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-					-- Using this option may slow down your editor, and you may see some duplicate highlights.
-					-- Instead of true it can also be a list of languages
-					additional_vim_regex_highlighting = false,
-				},
-				indent = {
-					enable = true,
-					-- disable = {
-					--   "python"
-					-- },
-				},
-				ignore_install = {},
-				sync_install = false,
-				auto_install = false,
-				modules = {},
+			vim.api.nvim_create_user_command("TSInstallConfigured", function()
+				treesitter.install(languages)
+			end, {})
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = filetypes,
+				callback = function(args)
+					local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+					if lang and pcall(vim.treesitter.start, args.buf, lang) then
+						vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end
+				end,
 			})
 		end,
 	},

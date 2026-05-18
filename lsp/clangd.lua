@@ -32,24 +32,21 @@ local cfg = {
 	end,
 	filetypes = { "c", "cpp", "h", "hpp" },
 	cmd = {
-		"clangd",
+		"clangd.exe",
 		"--header-insertion=never",
 		-- "--background-index", --index every file in workspaces
 		"--clang-tidy", -- additional linting and static analysis
 		"--completion-style=detailed", -- detailed completion suggestions
 	},
+	-- cmd_env = {
+	-- 	PATH = "C:/llvm-mingw/bin;" .. vim.env.PATH,
+	-- },
 	root_markers = { { ".clangd", ".clang-format" }, ".git" },
 	-- root_markers = function()
 	-- 	return vim.fn.getcwd()
 	-- end,
-	-- init_options = {
-	-- 	fallbackFlags = function()
-	-- 		if vim.bo.filetype == "c" or vim.bo.filetype == "h" then
-	-- 			return { "--std=c23" }
-	-- 		else
-	-- 			return { "--std=c++23" }
-	-- 		end
-	-- 	end,
-	-- },
+	init_options = {
+		fallbackFlags = { "-std=c++23" },
+	},
 }
 return cfg

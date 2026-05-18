@@ -9,7 +9,10 @@ return {
 		config = function()
 			require("modus-themes").setup({
 				transparent = true,
-				variant = "deuteranopia",
+				variants = {
+					modus_operandi = "deuteranopia",
+					modus_vivendi = "deuteranopia",
+				},
 				line_nr_column_background = false,
 				sign_column_background = false,
 			})
