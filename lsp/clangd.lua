@@ -32,7 +32,7 @@ local cfg = {
 	end,
 	filetypes = { "c", "cpp", "h", "hpp" },
 	cmd = {
-		"clangd.exe",
+		"clangd",
 		"--header-insertion=never",
 		-- "--background-index", --index every file in workspaces
 		"--clang-tidy", -- additional linting and static analysis
