@@ -56,6 +56,7 @@ return {
 				"goimports",
 				"golines",
 				"google-java-format",
+				"codelldb",
 			}
 			require("mason-null-ls").setup({
 				ensure_installed = ensure_installed,

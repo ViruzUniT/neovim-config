@@ -31,12 +31,28 @@ local filetypes = {
 	"lua",
 }
 
+local function configure_treesitter_compiler()
+	if vim.fn.has("win32") == 0 then
+		return
+	end
+
+	local llvm_mingw = "C:\\llvm-mingw\\bin"
+	if vim.fn.executable(llvm_mingw .. "\\x86_64-w64-mingw32-gcc.exe") == 1 then
+		vim.env.CC = vim.env.CC or (llvm_mingw .. "\\x86_64-w64-mingw32-gcc.exe")
+		vim.env.CXX = vim.env.CXX or (llvm_mingw .. "\\x86_64-w64-mingw32-g++.exe")
+		vim.env.CRATE_CC_NO_DEFAULTS = vim.env.CRATE_CC_NO_DEFAULTS or "1"
+	end
+end
+
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		lazy = false,
 		build = ":TSUpdate",
+		init = configure_treesitter_compiler,
 		config = function()
+			configure_treesitter_compiler()
+
 			local treesitter = require("nvim-treesitter")
 			treesitter.setup()
 

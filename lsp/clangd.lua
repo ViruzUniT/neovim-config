@@ -34,6 +34,7 @@ local cfg = {
 	cmd = {
 		"clangd",
 		"--header-insertion=never",
+		"--query-driver=**/clang++,**/clang++.exe,**/g++,**/g++.exe,**/x86_64-w64-mingw32-g++.exe,**/clang- cl.exe,**/cl.exe",
 		-- "--background-index", --index every file in workspaces
 		"--clang-tidy", -- additional linting and static analysis
 		"--completion-style=detailed", -- detailed completion suggestions

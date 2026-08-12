@@ -108,4 +108,33 @@ return {
 		dependencies = { "nvim-telescope/telescope.nvim" },
 		opts = {},
 	},
+	{
+		"anurag3301/nvim-platformio.lua",
+
+		-- Dependencies are lazy-loaded by default unless specified otherwise.
+		dependencies = {
+			{ "nvim-telescope/telescope.nvim" },
+			{ "nvim-telescope/telescope-ui-select.nvim" },
+			{ "nvim-lua/plenary.nvim" },
+			{ "folke/which-key.nvim" },
+			{ "nvim-treesitter/nvim-treesitter" },
+
+			-- install picker based on your likeing
+			{ "akinsho/toggleterm.nvim" },
+		},
+		lazy = false,
+		config = function()
+			vim.g.pioConfig = {
+				lsp = "clangd", -- value: clangd | ccls
+				clangd_source = "compiledb", -- value: ccls | compiledb, For detailed explation check :help platformio-clangd_source
+				picker_backend = "telescope", -- value: auto | telescope | ui_select, default: auto, check :help platformio-picker
+				menu_key = "<leader>\\", -- replace this menu key  to your convenience
+				debug = false, -- enable debug messages
+			}
+			local pok, platformio = pcall(require, "platformio")
+			if pok then
+				platformio.setup(vim.g.pioConfig)
+			end
+		end,
+	},
 }
