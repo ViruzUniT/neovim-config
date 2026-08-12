@@ -4,12 +4,14 @@ return {
 		config = function()
 			local dap = require("dap")
 
+			local codelldb = vim.fn.stdpath("data") .. "\\mason\\packages\\codelldb\\extension\\adapter\\codelldb.exe"
+
 			dap.adapters.codelldb = {
 				type = "executable",
-				command = "codelldb", -- or if not in $PATH: "/absolute/path/to/codelldb"
+				command = codelldb, -- or if not in $PATH: "/absolute/path/to/codelldb"
 
 				-- On windows you may have to uncomment this:
-				-- detached = false,
+				detached = false,
 			}
 
 			dap.configurations.cpp = {
@@ -24,6 +26,7 @@ return {
 					stopOnEntry = false,
 				},
 			}
+			dap.configurations.c = dap.configurations.cpp
 
 			dap.adapters.python = {
 				type = "executable",
