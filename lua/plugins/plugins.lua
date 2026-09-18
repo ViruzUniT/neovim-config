@@ -71,12 +71,18 @@ return {
 	{ "BurntSushi/ripgrep" },
 	{
 		"xiyaowong/transparent.nvim",
+		lazy = false,
 		opts = {
 			extra_groups = {
 				"TreesitterContext",
 				"LineNr",
 			},
 		},
+		config = function()
+			if string.match(vim.cmd("colorscheme"), "modus") == nil then
+				vim.cmd("TransparentEnable")
+			end
+		end,
 	},
 	{
 		"windwp/nvim-autopairs",

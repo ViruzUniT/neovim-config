@@ -28,7 +28,7 @@ if vim.loop.os_uname().sysname ~= "Linux" then
 	vim.cmd("lang en_US")
 end
 
-vim.cmd("colorscheme modus")
+vim.cmd("colorscheme gruvbox-material")
 
 vim.o.timeout = true
 vim.o.timeoutlen = 300

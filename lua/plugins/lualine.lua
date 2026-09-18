@@ -5,8 +5,9 @@ return {
 		require("lualine").setup({
 			options = {
 				icons_enabled = true,
-				theme = "modus-vivendi",
+				-- theme = "modus-vivendi",
 				-- theme = "moonfly",
+				theme = "gruvbox-material",
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
 				always_show_tabline = true,
