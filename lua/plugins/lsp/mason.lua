@@ -3,6 +3,11 @@ return {
 		"williamboman/mason.nvim",
 		lazy = false,
 		opts = {
+			-- Roslyn is published through the community registry below.
+			registries = {
+				"github:Crashdummyy/mason-registry",
+				"github:mason-org/mason-registry",
+			},
 			ui = {
 				icons = {
 					package_installed = "✓",
@@ -16,6 +21,16 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		lazy = false,
 		config = function()
+			local registry = require("mason-registry")
+			-- Install Roslyn once the custom registry has been refreshed.  Mason
+			-- will simply skip this when it is already installed.
+			vim.defer_fn(function()
+				local ok, package = pcall(registry.get_package, "roslyn")
+				if ok and not package:is_installed() and not package:is_installing() then
+					package:install()
+				end
+			end, 1000)
+
 			local mason_lsp = require("mason-lspconfig")
 
 			-- enable mason and configure icons

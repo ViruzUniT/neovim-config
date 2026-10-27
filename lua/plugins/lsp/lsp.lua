@@ -3,6 +3,7 @@ return {
 	lazy = false,
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
+		"justinlazarus/roslyn.nvim",
 	},
 	config = function()
 		vim.lsp.config("clangd", dofile(vim.fn.stdpath("config") .. "/lsp/clangd.lua"))
@@ -43,6 +44,13 @@ highlight DiagnosticUnderlineHint gui=underline guisp=Green
 ]])
 
 		vim.opt.winborder = "rounded"
+
+		vim.filetype.add({
+			extension = {
+				hlsl = "hlsl",
+				hlsli = "hlsl",
+			},
+		})
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			callback = function(ev)

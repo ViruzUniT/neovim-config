@@ -5,13 +5,13 @@ local languages = {
 	"css",
 	"javascript",
 	"typescript",
-	"tsx",
 	"c",
 	"markdown",
 	"markdown_inline",
 	"cpp",
 	"rust",
 	"java",
+	"c_sharp",
 	"lua",
 }
 
@@ -22,13 +22,15 @@ local filetypes = {
 	"css",
 	"javascript",
 	"typescript",
-	"typescriptreact",
 	"c",
+	"hlsl",
 	"markdown",
 	"cpp",
 	"rust",
 	"java",
+	"cs",
 	"lua",
+	"tsx",
 }
 
 local function configure_treesitter_compiler()
@@ -52,6 +54,8 @@ return {
 		init = configure_treesitter_compiler,
 		config = function()
 			configure_treesitter_compiler()
+
+			vim.treesitter.language.register("tsx", { "typescriptreact" })
 
 			local treesitter = require("nvim-treesitter")
 			treesitter.setup()

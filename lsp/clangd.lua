@@ -34,7 +34,7 @@ local cfg = {
 			desc = "Goto Declaration",
 		})
 	end,
-	filetypes = { "c", "cpp", "h", "hpp" },
+	filetypes = { "c", "cpp", "h", "hpp", "hlsl", "cuda" },
 	cmd = {
 		"clangd",
 		"--header-insertion=never",
@@ -57,7 +57,15 @@ local cfg = {
 	-- 	return vim.fn.getcwd()
 	-- end,
 	init_options = {
-		fallbackFlags = { "-std=c++23" },
+		fallbackFlags = {
+			"-std=c++23",
+			"-Wunused-variable",
+			"-Wunused-parameter",
+			"-Wunused-result",
+			"-Wall",
+			"-Wextra",
+			"-Wunused-result",
+		},
 	},
 }
 return cfg
